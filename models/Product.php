@@ -1,0 +1,50 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "product".
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $photo
+ * @property string $description
+ */
+class Product extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'product';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['id'], 'required'],
+            [['id'], 'integer'],
+            [['name', 'photo', 'description'], 'string', 'max' => 255],
+            [['id'], 'unique'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'photo' => 'Photo',
+            'description' => 'Description',
+        ];
+    }
+}
