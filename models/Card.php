@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "card".
@@ -20,6 +22,22 @@ use Yii;
  */
 class Card extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    # 创建时更新
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    # 修改时更新
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
+                ],
+                #设置默认值
+                'value' => date("Y-m-d H:i:s")
+            ]
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -47,13 +65,13 @@ class Card extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'status' => 'Status',
-            'pic_url' => 'Pic Url',
+            'name' => '名称',
+            'status' => '状态',
+            'pic_url' => '图片',
             'origin_price' => 'Origin Price',
             'count' => 'Count',
-            'price' => 'Price',
-            'created_at' => 'Created At',
+            'price' => '价格',
+            'created_at' => '创建时间',
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',
         ];

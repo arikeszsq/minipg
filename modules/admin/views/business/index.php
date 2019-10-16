@@ -7,33 +7,50 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\BusinessSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Businesses';
+$this->title = '商家管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="business-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Business', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+//
+//            'id',
+            [
+                'label' => '商家名',
+                'attribute' => 'name',
+            ],
+            [
+                'label' => '商家手机号',
+                'attribute' => 'phone',
+            ],
+            [
+                'label' => '商家微信号',
+                'attribute' => 'wx_num',
+            ],
+            [
+                'label' => '商家地址',
+                'attribute' => 'address',
+            ],
 
-            'id',
-            'name',
-            'phone',
-            'address',
-            'detail',
-            //'wx_num',
-            //'status',
-            //'created_at',
+            [
+                'label' => '商家详情',
+                'attribute' => 'detail',
+            ],
+
+//            [
+//                'label' => '状态',
+//                'attribute' => 'status',
+//            ],
+            [
+                'label' => '添加时间',
+                'attribute' => 'created_at',
+            ],
+
+
             //'updated_at',
             //'deleted_at',
 

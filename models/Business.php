@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "business".
@@ -20,6 +22,22 @@ use Yii;
  */
 class Business extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    # 创建时更新
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    # 修改时更新
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
+                ],
+                #设置默认值
+                'value' => date("Y-m-d H:i:s")
+            ]
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -34,7 +52,7 @@ class Business extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['updated_at'], 'safe'],
+            [['updated_at','wx_num'], 'safe'],
             [['name', 'phone', 'address', 'detail', 'status', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
@@ -50,7 +68,7 @@ class Business extends \yii\db\ActiveRecord
             'phone' => 'Phone',
             'address' => 'Address',
             'detail' => 'Detail',
-            'wx_num' => 'Wx Num',
+            'wx_num' => '微信号',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

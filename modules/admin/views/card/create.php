@@ -5,14 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Card */
 
-$this->title = 'Create Card';
+$this->title = '新建会员卡';
 $this->params['breadcrumbs'][] = ['label' => 'Cards', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

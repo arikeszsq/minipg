@@ -12,25 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+    <?= $form->field($model, 'name')->label('名称')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->label('状态')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'pic_url')->label('logo')->widget('manks\FileInput', []); ?>
 
-    <?= $form->field($model, 'pic_url')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'origin_price')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'count')->textInput() ?>
-
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'deleted_at')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'price')->label('价格')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

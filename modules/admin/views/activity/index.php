@@ -23,31 +23,48 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
+            [
+//                'header' => "logo",
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<img src="'.$model->logo_url.'" width=30px;height=30px;>';
+                },
+            ],
             [
                 'label' => '活动名称',
                 'attribute' => 'name',
             ],
-            [
-                'label' => '状态',
-                'attribute' => 'status',
-            ],
+//            [
+//                'label' => '状态',
+//                'attribute' => 'status',
+//            ],
             [
                 'label' => '价格',
                 'attribute' => 'price',
             ],
 
-//            'logo_url:url',
-//            'background_url:url',
-            //'start_time',
-            //'end_time',
-            //'address',
-            //'detail',
-            //'price_detail',
-            //'everyone_comment',
-//            'created_at',
-            //'updated_at',
-            //'deleted_at',
+//            [
+////                'header' => "背景图",
+//                'format' => 'raw',
+//                'value' => function ($model) {
+//                    return '<img src="'.$model->background_url.'" width=50px;height=50px;>';
+//                },
+//            ],
+//            'start_time',
+//            'end_time',
+            [
+                'label' => '地址',
+                'attribute' => 'address',
+            ],
+//            'detail',
+//            'price_detail',
+//            'everyone_comment',
+            [
+                'label' => '创建时间',
+                'attribute' => 'created_at',
+            ],
+//            'updated_at',
+//            'deleted_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

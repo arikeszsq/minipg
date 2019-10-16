@@ -7,15 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CardSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Cards';
+$this->title = '会员卡管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Card', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('新建会员卡', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,15 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<img src="'.$model->pic_url.'" width=50px;height=50px;>';
+                },
+            ],
             'name',
             'status',
-            'pic_url:url',
-            'origin_price',
+//            'origin_price',
             //'count',
             //'price',
-            //'created_at',
+            'created_at',
             //'updated_at',
             //'deleted_at',
 
