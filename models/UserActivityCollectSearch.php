@@ -17,7 +17,7 @@ class UserActivityCollectSearch extends UserActivityCollect
     public function rules()
     {
         return [
-            [['id', 'user_id', 'activity_id'], 'integer'],
+            [[ 'user_id', 'activity_id'], 'integer'],
         ];
     }
 

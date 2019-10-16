@@ -6,8 +6,17 @@
                 'items' => [
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'circle-o', 'url' => ['/debug']],
-                    ['label' => '产品列表', 'icon' => 'file-code-o', 'url' => ['/admin/product/index']],
-                    ['label' => '会员卡管理', 'icon' => 'dashboard', 'url' => ['/admin/member-card/index']],
+                    ['label' => '活动列表', 'icon' => 'file-code-o', 'url' => ['/admin/activity/index']],
+                    ['label' => '商家管理', 'icon' => 'dashboard', 'url' => ['/admin/business/index']],
+                    ['label' => '会员卡', 'icon' => 'file-code-o', 'url' => ['/admin/card/index']],
+                    ['label' => '优惠卷', 'icon' => 'circle-o', 'url' => ['/admin/consum-log/index']],
+                    ['label' => '消费记录', 'icon' => 'file-code-o', 'url' => ['/admin/coupon/index']],
+                    ['label' => '用户活动收藏', 'icon' => 'circle-o', 'url' => ['/admin/user-activity-collect/index']],
+                    ['label' => '用户活动评价', 'icon' => 'file-code-o', 'url' => ['/admin/user-activity-comment/index']],
+                    ['label' => '用户活动报名', 'icon' => 'dashboard', 'url' => ['/admin/user-activity-enroll/index']],
+                    ['label' => '用户会员卡', 'icon' => 'circle-o', 'url' => ['/admin/user-card/index']],
+                    ['label' => '用户优惠卷', 'icon' => 'dashboard', 'url' => ['/admin/user-coupon/index']],
+                    ['label' => '用户管理', 'icon' => 'circle-o', 'url' => ['/admin/user-info/index']],
                 ],
             ]
         ) ?>

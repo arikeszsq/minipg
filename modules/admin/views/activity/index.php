@@ -7,15 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ActivitySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Activities';
+$this->title = '活动列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="activity-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Activity', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('新建活动', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,22 +23,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'name',
-            'status',
-            'price',
-            'count',
-            //'origin_price',
-            //'logo_url:url',
-            //'background_url:url',
+            [
+                'label' => '活动名称',
+                'attribute' => 'name',
+            ],
+            [
+                'label' => '状态',
+                'attribute' => 'status',
+            ],
+            [
+                'label' => '价格',
+                'attribute' => 'price',
+            ],
+
+//            'logo_url:url',
+//            'background_url:url',
             //'start_time',
             //'end_time',
             //'address',
             //'detail',
             //'price_detail',
             //'everyone_comment',
-            //'created_at',
+//            'created_at',
             //'updated_at',
             //'deleted_at',
 

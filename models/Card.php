@@ -34,12 +34,9 @@ class Card extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'count'], 'integer'],
             [['origin_price', 'price'], 'number'],
             [['updated_at'], 'safe'],
             [['name', 'status', 'pic_url', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 

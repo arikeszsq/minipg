@@ -17,7 +17,6 @@ class UserActivityCommentSearch extends UserActivityComment
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
             [['activity', 'content'], 'safe'],
         ];
     }

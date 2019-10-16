@@ -17,7 +17,6 @@ class CouponSearch extends Coupon
     public function rules()
     {
         return [
-            [['id', 'business_id', 'total_num'], 'integer'],
             [['business_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'valid_time', 'valid_time_start', 'valid_time_end', 'using_flow', 'using_detail', 'check_code', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['price'], 'number'],
         ];

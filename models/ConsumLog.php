@@ -30,11 +30,8 @@ class ConsumLog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'user_id'], 'integer'],
             [['updated_at'], 'safe'],
             [['business_name', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 

@@ -34,11 +34,8 @@ class UserCard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'user_id', 'card_id'], 'integer'],
             [['valid_time_start', 'valid_time_end', 'valid_time', 'updated_at'], 'safe'],
             [['status', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 

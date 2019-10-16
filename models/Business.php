@@ -34,11 +34,8 @@ class Business extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'wx_num'], 'integer'],
             [['updated_at'], 'safe'],
             [['name', 'phone', 'address', 'detail', 'status', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 

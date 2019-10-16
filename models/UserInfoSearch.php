@@ -17,7 +17,6 @@ class UserInfoSearch extends UserInfo
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
             [['username', 'real_name', 'mobile', 'phone', 'birthday', 'baby_gender', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }

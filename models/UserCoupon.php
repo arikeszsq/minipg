@@ -33,11 +33,8 @@ class UserCoupon extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'user_id', 'coupon_id', 'status', 'total_num', 'stay_num'], 'integer'],
             [['updated_at'], 'safe'],
             [['created_at', 'deleted_at'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 

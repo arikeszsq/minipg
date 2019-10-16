@@ -17,7 +17,6 @@ class UserCardSearch extends UserCard
     public function rules()
     {
         return [
-            [['id', 'user_id', 'card_id'], 'integer'],
             [['status', 'valid_time_start', 'valid_time_end', 'valid_time', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }

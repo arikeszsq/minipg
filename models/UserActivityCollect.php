@@ -27,9 +27,7 @@ class UserActivityCollect extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
             [['id', 'user_id', 'activity_id'], 'integer'],
-            [['id'], 'unique'],
         ];
     }
 
