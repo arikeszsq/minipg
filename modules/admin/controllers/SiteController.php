@@ -48,12 +48,12 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect('/admin/product/index');
+            return $this->redirect('/admin/activity/index');
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('/admin/product/index');
+            return $this->redirect('/admin/activity/index');
         }
 
         $model->password = '';
