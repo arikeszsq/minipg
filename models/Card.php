@@ -22,6 +22,32 @@ use yii\db\ActiveRecord;
  */
 class Card extends \yii\db\ActiveRecord
 {
+    const Status_使用中 = 1;
+    const Status_已绝版 = 2;
+
+    /**
+     * 状态下拉选项
+     * @return array
+     */
+    public static function statusDropdownList()
+    {
+        return [
+            self::Status_使用中 => '使用中',
+            self::Status_已绝版 => '已绝版',
+        ];
+    }
+
+    /**
+     * 返回状态文字
+     * @return string
+     */
+    public static function getStatusTxt($num)
+    {
+        $array = self::statusDropdownList();
+        return $array[$num];
+    }
+
+
     public function behaviors()
     {
         return [

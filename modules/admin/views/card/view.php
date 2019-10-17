@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Card;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,20 +8,17 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Card */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Cards', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '会员卡', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="card-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('删除', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '确定删除项目嘛?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,17 +27,29 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+//            'id',
             'name',
-            'status',
-            'pic_url:url',
-            'origin_price',
-            'count',
+//            'origin_price',
+//            'count',
             'price',
             'created_at',
             'updated_at',
-            'deleted_at',
+//            'deleted_at',
         ],
     ]) ?>
+
+    <div style="margin-left: 5px;">
+
+        <?php
+        if(!empty($model->pic_url)){
+            echo ' <div style="margin-top: 5px;"> logo : <img src="'.$model->pic_url.'" width=180px;height=180px;></div>';
+        }
+
+        if(!empty($model->status)){
+            echo '<div style="margin-top: 5px;"> <span style="color: red">状态：'.Card::getStatusTxt($model->status).'</div>';
+        }
+
+        ?>
+    </div>
 
 </div>

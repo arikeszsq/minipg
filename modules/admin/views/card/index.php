@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Card;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -29,13 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'name',
-            'status',
+//            'status',
 //            'origin_price',
             //'count',
-            //'price',
+            'price',
             'created_at',
             //'updated_at',
             //'deleted_at',
+            [
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if (!empty($model->status)) {
+                        return Card::getStatusTxt($model->status);
+                    } else {
+                        return '';
+                    }
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
