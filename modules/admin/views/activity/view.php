@@ -20,20 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'name',
-            'status',
             'price',
-//            [
-//                'format' => 'raw',
-//                'value' => function ($model) {
-//                    return '<img src="'.$model->logo_url.'" width=60px;height=60px;>';
-//                },
-//            ],
-//            [
-//                'format' => 'raw',
-//                'value' => function ($model) {
-//                    return '<img src="'.$model->background_url.'" width=60px;height=60px;>';
-//                },
-//            ],
             'start_time',
             'end_time',
             'address',
@@ -45,7 +32,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'deleted_at',
         ],
     ]) ?>
-    <div> logo : <img src=<?php echo  $model->logo_url ?> width=60px;height=60px;>
-        <div> 背景图 : <img src=<?php echo  $model->logo_url ?> width=60px;height=60px;>
+    <div style="margin-left: 5px;">
+
+    <?php
+    if(!empty($model->logo_url)){
+        echo ' <div style="margin-top: 5px;"> logo : <img src="'.$model->logo_url.'" width=80px;height=80px;></div>';
+    }
+
+    if(!empty($model->background_url)){
+        echo ' <div style="margin-top: 5px;"> 背景图 : <img src="'.$model->background_url.'" width=80px;height=80px;></div>';
+    }
+
+    if(!empty($model->status)){
+        echo '<div style="margin-top: 5px;"> <span style="color: red">活动状态：'.\app\models\Activity::getStatusTxt($model->status).'</div>';
+    }
+
+    ?>
+    </div>
+
 
 </div>

@@ -27,13 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
 //                'header' => "logo",
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return '<img src="'.$model->logo_url.'" width=30px;height=30px;>';
+                    return '<img src="' . $model->logo_url . '" width=30px;height=30px;>';
                 },
             ],
             [
                 'label' => '活动名称',
                 'attribute' => 'name',
             ],
+
 //            [
 //                'label' => '状态',
 //                'attribute' => 'status',
@@ -65,6 +66,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 //            'updated_at',
 //            'deleted_at',
+            [
+//                'header' => "logo",
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if (!empty($model->status)) {
+                        return \app\models\Activity::getStatusTxt($model->status);
+                    } else {
+                        return '';
+                    }
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

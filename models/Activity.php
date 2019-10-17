@@ -29,6 +29,33 @@ use yii\db\ActiveRecord;
  */
 class Activity extends \yii\db\ActiveRecord
 {
+    const Status_未开始 = 1;
+    const Status_使用中 = 2;
+    const Status_已结束 = 3;
+
+    /**
+     * 状态下拉选项
+     * @return array
+     */
+    public static function statusDropdownList()
+    {
+        return [
+            self::Status_未开始 => '未开始',
+            self::Status_使用中 => '使用中',
+            self::Status_已结束 => '已结束',
+        ];
+    }
+
+    /**
+     * 返回状态文字
+     * @return string
+     */
+    public static function getStatusTxt($num)
+    {
+        $array = self::statusDropdownList();
+        return $array[$num];
+    }
+
     public function behaviors()
     {
         return [
@@ -61,8 +88,8 @@ class Activity extends \yii\db\ActiveRecord
     {
         return [
             [['price', 'origin_price'], 'number'],
-            [['start_time', 'end_time', 'updated_at'], 'safe'],
-            [['name', 'status', 'logo_url', 'background_url', 'address', 'detail', 'price_detail', 'everyone_comment', 'created_at', 'deleted_at'], 'string', 'max' => 255],
+            [['start_time', 'end_time', 'updated_at','status'], 'safe'],
+            [['name', 'logo_url', 'background_url', 'address', 'detail', 'price_detail', 'everyone_comment', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Activity;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -17,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'name')->label('活动名称')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price')->label('价格')->textInput(['maxlength' => true]) ?>
+
+    <?php echo $form->field($model, 'status')->dropDownList(Activity::statusDropdownList(), ['prompt'=>'请选择']) ?>
 
     <?php echo $form->field($model, 'logo_url')->label('封面图-Logo')->widget('manks\FileInput', []); ?>
 
