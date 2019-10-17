@@ -17,7 +17,8 @@ class CouponSearch extends Coupon
     public function rules()
     {
         return [
-            [['business_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'valid_time', 'valid_time_start', 'valid_time_end', 'using_flow', 'using_detail', 'check_code', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id', 'card_id', 'total_num'], 'integer'],
+            [['card_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'valid_time', 'valid_time_start', 'valid_time_end', 'using_flow', 'using_detail', 'check_code', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -59,7 +60,7 @@ class CouponSearch extends Coupon
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'business_id' => $this->business_id,
+            'card_id' => $this->card_id,
             'price' => $this->price,
             'total_num' => $this->total_num,
             'valid_time' => $this->valid_time,
@@ -68,7 +69,7 @@ class CouponSearch extends Coupon
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'business_name', $this->business_name])
+        $query->andFilterWhere(['like', 'card_name', $this->card_name])
             ->andFilterWhere(['like', 'pic_url', $this->pic_url])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])

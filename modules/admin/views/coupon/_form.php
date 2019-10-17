@@ -12,11 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+    <?= $form->field($model, 'card_id')->textInput() ?>
 
-    <?= $form->field($model, 'business_id')->textInput() ?>
-
-    <?= $form->field($model, 'business_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'card_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'pic_url')->textInput(['maxlength' => true]) ?>
 

@@ -17,9 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'business_id') ?>
+    <?= $form->field($model, 'card_id') ?>
 
-    <?= $form->field($model, 'business_name') ?>
+    <?= $form->field($model, 'card_name') ?>
 
     <?= $form->field($model, 'pic_url') ?>
 

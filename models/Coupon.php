@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "coupon".
  *
  * @property int $id
- * @property int $business_id
- * @property string $business_name
+ * @property int $card_id
+ * @property string $card_name
  * @property string $pic_url
  * @property string $name
  * @property string $description
@@ -46,9 +46,10 @@ class Coupon extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['card_id', 'total_num'], 'integer'],
             [['price'], 'number'],
             [['valid_time', 'valid_time_start', 'valid_time_end', 'updated_at'], 'safe'],
-            [['business_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'using_flow', 'using_detail', 'check_code', 'created_at', 'deleted_at'], 'string', 'max' => 255],
+            [['card_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'using_flow', 'using_detail', 'check_code', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
 
@@ -59,8 +60,8 @@ class Coupon extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'business_id' => 'Business ID',
-            'business_name' => 'Business Name',
+            'card_id' => 'Card ID',
+            'card_name' => 'Card Name',
             'pic_url' => 'Pic Url',
             'name' => 'Name',
             'description' => 'Description',
