@@ -7,36 +7,33 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Activity */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Activities', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '活动详情', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="activity-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'status',
             'price',
-            'count',
-            'origin_price',
-            'logo_url:url',
-            'background_url:url',
+//            [
+//                'format' => 'raw',
+//                'value' => function ($model) {
+//                    return '<img src="'.$model->logo_url.'" width=60px;height=60px;>';
+//                },
+//            ],
+//            [
+//                'format' => 'raw',
+//                'value' => function ($model) {
+//                    return '<img src="'.$model->background_url.'" width=60px;height=60px;>';
+//                },
+//            ],
             'start_time',
             'end_time',
             'address',
@@ -48,5 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'deleted_at',
         ],
     ]) ?>
+    <div> logo : <img src=<?php echo  $model->logo_url ?> width=60px;height=60px;>
+        <div> 背景图 : <img src=<?php echo  $model->logo_url ?> width=60px;height=60px;>
 
 </div>

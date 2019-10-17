@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php echo $form->field($model, 'background_url')->label('背景图')->widget('manks\FileInput', []); ?>
 
     <?= $form->field($model, 'start_time')->label('开始时间')->widget(kartik\datetime\DateTimePicker::className(), [
-//        'options' => ['placeholder' =>date('Y-m-d H:i:s',time())],
         'readonly' => false,
         'pluginOptions' => [
             'autoclose' => true,
@@ -32,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?= $form->field($model, 'end_time')->label('结束时间')->widget(kartik\datetime\DateTimePicker::className(), [
-        //        'options' => ['placeholder' =>date('Y-m-d H:i:s',time())],
         'readonly' => false,
         'pluginOptions' => [
             'autoclose' => true,
