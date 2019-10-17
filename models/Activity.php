@@ -87,6 +87,7 @@ class Activity extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['price', 'origin_price'], 'number'],
             [['start_time', 'end_time', 'updated_at','status'], 'safe'],
             [['name', 'logo_url', 'background_url', 'address', 'detail', 'price_detail', 'everyone_comment', 'created_at', 'deleted_at'], 'string', 'max' => 255],

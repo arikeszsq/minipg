@@ -32,6 +32,31 @@ use Yii;
  */
 class Coupon extends \yii\db\ActiveRecord
 {
+    const Status_有效 = 1;
+    const Status_失效 = 2;
+
+    /**
+     * 状态下拉选项
+     * @return array
+     */
+    public static function statusDropdownList()
+    {
+        return [
+            self::Status_有效 => '有效',
+            self::Status_失效 => '失效',
+        ];
+    }
+
+    /**
+     * 返回状态文字
+     * @return string
+     */
+    public static function getStatusTxt($num)
+    {
+        $array = self::statusDropdownList();
+        return $array[$num];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -46,6 +71,7 @@ class Coupon extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['card_name','name'], 'required'],
             [['price'], 'number'],
             [['valid_time', 'valid_time_start', 'valid_time_end', 'updated_at'], 'safe'],
             [['card_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'using_flow', 'using_detail', 'check_code', 'created_at', 'deleted_at'], 'string', 'max' => 255],
