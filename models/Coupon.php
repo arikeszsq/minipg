@@ -72,7 +72,7 @@ class Coupon extends \yii\db\ActiveRecord
     {
         return [
             [['card_name','name'], 'required'],
-            [['price'], 'number'],
+            [['price','suitable_age_start','suitable_age_end','total_num'], 'number'],
             [['valid_time', 'valid_time_start', 'valid_time_end', 'updated_at'], 'safe'],
             [['card_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'using_flow', 'using_detail', 'check_code', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];

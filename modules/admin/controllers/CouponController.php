@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\admin\service\CardService;
 use Yii;
 use app\models\Coupon;
 use app\models\CouponSearch;
@@ -66,7 +67,15 @@ class CouponController extends BaseController
     {
         $model = new Coupon();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+            $params = Yii::$app->request->post();
+            $model->load(Yii::$app->request->post());
+            $card = new CardService();
+            $card_id = $card->getCardId($params['Coupon']['card_name']);
+            $model->card_id = $card_id;
+            $model->suitable_age = $params['Coupon']['suitable_age_start'] . '-' . $params['Coupon']['suitable_age_end'];
+            $model->check_code = md5('sz' . rand(100000, 999999) . 'gd');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
