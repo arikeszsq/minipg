@@ -5,13 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Business */
 
-$this->title = 'Create Business';
-$this->params['breadcrumbs'][] = ['label' => 'Businesses', 'url' => ['index']];
+$this->title = '新建商家';
+$this->params['breadcrumbs'][] = ['label' => '商家', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="business-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

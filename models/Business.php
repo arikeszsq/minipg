@@ -42,8 +42,8 @@ class Business extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['updated_at'], 'safe'],
-            [['name', 'code', 'tag', 'logo', 'banner', 'phone', 'address', 'valid_age_end', 'valid_age_start', 'valid_age', 'detail', 'coupon_detail', 'status', 'created_at', 'deleted_at'], 'string', 'max' => 255],
+            [['updated_at', 'code'], 'safe'],
+            [['name', 'tag', 'logo', 'banner', 'phone', 'address', 'valid_age_end', 'valid_age_start', 'valid_age', 'detail', 'coupon_detail', 'status', 'created_at', 'deleted_at'], 'string', 'max' => 255],
             [['wx_num'], 'string', 'max' => 11],
         ];
     }

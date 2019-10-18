@@ -2,6 +2,7 @@
 
 use app\models\Coupon;
 use app\modules\admin\service\CardService;
+use app\modules\admin\service\CommonService;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,11 +15,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
     <?php echo $form->field($model, 'card_name')->label('会员卡')->dropDownList(((new CardService())->getCardNameList()), ['prompt'=>'请选择']); ?>
+
+    <?php echo $form->field($model, 'business_name')->label('商家名称')->dropDownList(((new CommonService())->getBusinessNameList()), ['prompt'=>'请选择']); ?>
 
     <?php echo $form->field($model, 'pic_url')->label('logo图')->widget('manks\FileInput', []); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textArea(['rows' => 2]) ?>
 
