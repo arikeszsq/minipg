@@ -7,15 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserCardSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Cards';
+$this->title = '用户会员卡管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-card-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create User Card', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('新建', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,25 +23,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'user_id',
-            'card_id',
+//            'id',
+//            'user_id',
+//            'card_id',
             'card_name',
-            'status',
+//            'status',
             //'valid_time_start',
             //'valid_time_end',
             //'valid_time',
-            //'created_at',
             //'updated_at',
             //'deleted_at',
-            //'parent_name',
-            //'card_num',
-            //'parent_moblie',
-            //'child_name',
-            //'child_gender',
-            //'child_birthday',
+            'card_num',
+            'parent_name',
+            'parent_moblie',
+            'child_name',
+            'child_gender',
+            'child_birthday',
             //'child_age',
-            //'cipher',
+            'created_at',
+            'cipher',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

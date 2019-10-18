@@ -17,8 +17,8 @@ class BusinessSearch extends Business
     public function rules()
     {
         return [
-            [['id', 'wx_num'], 'integer'],
-            [['name', 'phone', 'address', 'detail', 'status', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'code', 'tag', 'logo', 'banner', 'phone', 'wx_num', 'address', 'valid_age_end', 'valid_age_start', 'valid_age', 'detail', 'coupon_detail', 'status', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -59,14 +59,22 @@ class BusinessSearch extends Business
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'wx_num' => $this->wx_num,
             'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'code', $this->code])
+            ->andFilterWhere(['like', 'tag', $this->tag])
+            ->andFilterWhere(['like', 'logo', $this->logo])
+            ->andFilterWhere(['like', 'banner', $this->banner])
             ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'wx_num', $this->wx_num])
             ->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'valid_age_end', $this->valid_age_end])
+            ->andFilterWhere(['like', 'valid_age_start', $this->valid_age_start])
+            ->andFilterWhere(['like', 'valid_age', $this->valid_age])
             ->andFilterWhere(['like', 'detail', $this->detail])
+            ->andFilterWhere(['like', 'coupon_detail', $this->coupon_detail])
             ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'created_at', $this->created_at])
             ->andFilterWhere(['like', 'deleted_at', $this->deleted_at]);
