@@ -7,32 +7,25 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserCouponSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Coupons';
+$this->title = '';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-coupon-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create User Coupon', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'coupon_id',
-            'status',
-            'total_num',
+//
+//            'id',
+//            'user_id',
+            'username',
+//            'coupon_id',
+            'coupon_name',
+            //'status',
+            //'total_num',
             //'stay_num',
-            //'created_at',
+            'created_at',
             //'updated_at',
             //'deleted_at',
 

@@ -17,8 +17,8 @@ class UserCouponSearch extends UserCoupon
     public function rules()
     {
         return [
-            [[ 'user_id', 'coupon_id', 'status', 'total_num', 'stay_num'], 'integer'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id', 'user_id', 'coupon_id', 'status', 'total_num', 'stay_num'], 'integer'],
+            [['username', 'coupon_name', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -67,7 +67,9 @@ class UserCouponSearch extends UserCoupon
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'created_at', $this->created_at])
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'coupon_name', $this->coupon_name])
+            ->andFilterWhere(['like', 'created_at', $this->created_at])
             ->andFilterWhere(['like', 'deleted_at', $this->deleted_at]);
 
         return $dataProvider;

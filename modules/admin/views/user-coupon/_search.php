@@ -19,11 +19,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id') ?>
 
+    <?= $form->field($model, 'username') ?>
+
     <?= $form->field($model, 'coupon_id') ?>
 
-    <?= $form->field($model, 'status') ?>
+    <?= $form->field($model, 'coupon_name') ?>
 
-    <?= $form->field($model, 'total_num') ?>
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'total_num') ?>
 
     <?php // echo $form->field($model, 'stay_num') ?>
 

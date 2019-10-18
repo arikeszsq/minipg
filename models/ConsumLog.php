@@ -30,7 +30,7 @@ class ConsumLog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['updated_at'], 'safe'],
+            [['updated_at','username'], 'safe'],
             [['business_name', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
@@ -43,8 +43,9 @@ class ConsumLog extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'business_name' => 'Business Name',
-            'created_at' => 'Created At',
+            'username' =>'用户名',
+            'business_name' => '商家名称',
+            'created_at' => '消费时间',
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',
         ];

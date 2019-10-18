@@ -18,7 +18,7 @@ class ConsumLogSearch extends ConsumLog
     {
         return [
             [['id', 'user_id'], 'integer'],
-            [['business_name', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['business_name','username', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -60,12 +60,14 @@ class ConsumLogSearch extends ConsumLog
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'username' => $this->username,
             'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'business_name', $this->business_name])
             ->andFilterWhere(['like', 'created_at', $this->created_at])
-            ->andFilterWhere(['like', 'deleted_at', $this->deleted_at]);
+            ->andFilterWhere(['like', 'deleted_at', $this->deleted_at])
+            ->andFilterWhere(['like', 'username', $this->deleted_at]);
 
         return $dataProvider;
     }
