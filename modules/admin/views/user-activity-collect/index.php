@@ -7,18 +7,10 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserActivityCollectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Activity Collects';
+$this->title = '活动收藏';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-activity-collect-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create User Activity Collect', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
