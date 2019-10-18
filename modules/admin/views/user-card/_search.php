@@ -21,9 +21,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'card_id') ?>
 
+    <?= $form->field($model, 'card_name') ?>
+
     <?= $form->field($model, 'status') ?>
 
-    <?= $form->field($model, 'valid_time_start') ?>
+    <?php // echo $form->field($model, 'valid_time_start') ?>
 
     <?php // echo $form->field($model, 'valid_time_end') ?>
 
@@ -34,6 +36,22 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'updated_at') ?>
 
     <?php // echo $form->field($model, 'deleted_at') ?>
+
+    <?php // echo $form->field($model, 'parent_name') ?>
+
+    <?php // echo $form->field($model, 'card_num') ?>
+
+    <?php // echo $form->field($model, 'parent_moblie') ?>
+
+    <?php // echo $form->field($model, 'child_name') ?>
+
+    <?php // echo $form->field($model, 'child_gender') ?>
+
+    <?php // echo $form->field($model, 'child_birthday') ?>
+
+    <?php // echo $form->field($model, 'child_age') ?>
+
+    <?php // echo $form->field($model, 'cipher') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

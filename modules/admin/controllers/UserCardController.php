@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * UserCardController implements the CRUD actions for UserCard model.
  */
-class UserCardController extends BaseController
+class UserCardController extends Controller
 {
     /**
      * {@inheritdoc}

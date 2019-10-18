@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'user_id',
             'card_id',
+            'card_name',
             'status',
             'valid_time_start',
             'valid_time_end',
@@ -39,6 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'updated_at',
             'deleted_at',
+            'parent_name',
+            'card_num',
+            'parent_moblie',
+            'child_name',
+            'child_gender',
+            'child_birthday',
+            'child_age',
+            'cipher',
         ],
     ]) ?>
 
