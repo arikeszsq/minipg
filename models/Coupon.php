@@ -3,13 +3,17 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "coupon".
  *
  * @property int $id
  * @property int $card_id
+ * @property int $business_id
  * @property string $card_name
+ * @property string $business_name
  * @property string $pic_url
  * @property string $name
  * @property string $description
@@ -65,6 +69,23 @@ class Coupon extends \yii\db\ActiveRecord
         return 'coupon';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    # 创建时更新
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    # 修改时更新
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
+                ],
+                #设置默认值
+                'value' => date("Y-m-d H:i:s")
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -73,7 +94,7 @@ class Coupon extends \yii\db\ActiveRecord
         return [
             [['card_name','name'], 'required'],
             [['price','suitable_age_start','suitable_age_end','total_num'], 'number'],
-            [['valid_time', 'valid_time_start', 'valid_time_end', 'updated_at'], 'safe'],
+            [['valid_time', 'valid_time_start', 'valid_time_end', 'updated_at','business_id','business_name'], 'safe'],
             [['card_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'using_flow', 'using_detail', 'check_code', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
@@ -85,8 +106,10 @@ class Coupon extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'card_id' => 'Card ID',
+            'card_id' => '会员卡ID',
+            'business_id' => '商家ID',
             'card_name' => '卡名',
+            'business_name' => '商家名',
             'pic_url' => 'Pic Url',
             'name' => '优惠卷名',
             'description' => '描述',
