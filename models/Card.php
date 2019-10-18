@@ -64,6 +64,7 @@ class Card extends \yii\db\ActiveRecord
             ]
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -80,7 +81,7 @@ class Card extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['origin_price', 'price'], 'number'],
-            [['updated_at'], 'safe'],
+            [['updated_at', 'valid_time'], 'safe'],
             [['name', 'status', 'pic_url', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
@@ -94,6 +95,7 @@ class Card extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => '名称',
             'status' => '状态',
+            'valid_time' => '有效时常',
             'pic_url' => '图片',
             'origin_price' => 'Origin Price',
             'count' => 'Count',

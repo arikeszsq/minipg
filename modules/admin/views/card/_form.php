@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->label('价格')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'valid_time')->label('有效时长')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
     </div>

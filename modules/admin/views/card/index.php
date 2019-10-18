@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return '<img src="'.$model->pic_url.'" width=50px;height=50px;>';
+                    return '<img src="' . $model->pic_url . '" width=50px;height=50px;>';
                 },
             ],
             'name',
@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'count',
             'price',
             'created_at',
+            'valid_time',
             //'updated_at',
             //'deleted_at',
             [
