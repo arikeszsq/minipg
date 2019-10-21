@@ -7,7 +7,6 @@ namespace app\modules\api\controllers;
 use app\models\Activity;
 use app\models\UserActivityCollect;
 use app\models\UserActivityEnroll;
-use app\models\UserInfo;
 use Yii;
 
 class ActivityController extends BaseController
