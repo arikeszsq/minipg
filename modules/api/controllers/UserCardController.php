@@ -29,6 +29,7 @@ class UserCardController extends BaseController
             ->where(['user_id' => $user_id])
             ->offset($offset)
             ->limit($per_page)
+            ->with('card')
             ->all();
         return [
             'code' => 200,

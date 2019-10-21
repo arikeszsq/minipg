@@ -78,4 +78,9 @@ class UserCard extends \yii\db\ActiveRecord
             'cipher' => '密钥',
         ];
     }
+
+    public function getCard()
+    {
+        return $this->hasOne(Card::className(), ['id' => 'card_id']);
+    }
 }
