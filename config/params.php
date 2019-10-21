@@ -31,4 +31,5 @@ return [
 
     'MINI_APPID' => '123',
     'MINI_APP_SECRET'=>'123123',
+    'MCH_ID'=>'123123',
 ];
