@@ -75,7 +75,8 @@ class CouponController extends BaseController
             $card_id = $card->getCardId($params['Coupon']['card_name']);
             $model->card_id = $card_id;
             $model->suitable_age = $params['Coupon']['suitable_age_start'] . '-' . $params['Coupon']['suitable_age_end'];
-            $model->check_code = md5('sz' . rand(100000, 999999) . 'gd');
+//            $model->check_code = md5('sz' . rand(100000, 999999) . 'gd');
+            $model->check_code = rand(100000, 999999);
 
             $common = new CommonService;
             $business_id = $common->getBusinessId($params['Coupon']['business_name']);
