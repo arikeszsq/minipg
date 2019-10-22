@@ -5,6 +5,8 @@ namespace app\modules\api\controllers;
 
 
 use app\models\Card;
+use app\models\CardModel;
+use app\models\CouponModel;
 use Yii;
 
 class CardController extends BaseController
@@ -33,20 +35,24 @@ class CardController extends BaseController
         ];
     }
 
+    /**
+     * 获取会员卡详情
+     * @return array
+     */
     public function actionDetail()
     {
         $inputs = Yii::$app->request->get();
         $card_id = $inputs['card_id'];
-        $detail = Card::find()
+        $card = CardModel::find()
+//            ->with('couponModels')
             ->where(['id'=>$card_id])
-            ->with('coupons')
-            ->with('activities')
             ->one();
         return [
             'code'=>200,
-            'data'=>$detail
+            'msg'=>'成功获取',
+            'card'=>$card,
+            'coupons'=>$card->couponModels
         ];
     }
-
 
 }

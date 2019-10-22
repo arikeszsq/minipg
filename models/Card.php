@@ -81,7 +81,7 @@ class Card extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['origin_price', 'price'], 'number'],
-            [['updated_at', 'valid_time'], 'safe'],
+            [['updated_at', 'valid_time','coupons'], 'safe'],
             [['name', 'status', 'pic_url', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
@@ -104,15 +104,5 @@ class Card extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',
         ];
-    }
-
-    public function getCoupons()
-    {
-        return $this->hasMany(Coupon::className(), ['card_id' => 'id']);
-    }
-
-    public function getActivities()
-    {
-        return $this->hasMany(Activity::className(), ['card_name' => 'name']);
     }
 }
