@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'coupon_detail')->textArea(['rows' => 2]) ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'status')->dropDownList(\app\models\Business::statusDropdownList(), ['prompt'=>'请选择']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
