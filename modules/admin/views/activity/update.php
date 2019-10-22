@@ -49,6 +49,10 @@ $this->params['breadcrumbs'][] = '更新';
     <?= $form->field($model, 'price_detail')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'everyone_comment')->textInput(['maxlength' => true]) ?>
+    
+    <?php echo $form->field($model, 'is_hot')->label('热门')->dropDownList(Activity::hotDropdownList(), ['prompt'=>'请选择']) ?>
+
+    <?php echo $form->field($model, 'is_selected')->label('精选')->dropDownList(Activity::selectDropdownList(), ['prompt'=>'请选择']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>

@@ -33,6 +33,12 @@ class Activity extends \yii\db\ActiveRecord
     const Status_使用中 = 2;
     const Status_已结束 = 3;
 
+    const Hot_热门 = 1;
+    const Hot_非热门 = 2;
+
+    const Select_精选 = 1;
+    const Select_非精选 = 2;
+
     /**
      * 状态下拉选项
      * @return array
@@ -43,6 +49,22 @@ class Activity extends \yii\db\ActiveRecord
             self::Status_未开始 => '未开始',
             self::Status_使用中 => '使用中',
             self::Status_已结束 => '已结束',
+        ];
+    }
+
+    public static function hotDropdownList()
+    {
+        return [
+            self::Hot_热门 => '热门',
+            self::Hot_非热门 => '非热门',
+        ];
+    }
+
+    public static function selectDropdownList()
+    {
+        return [
+            self::Select_精选 => '精选',
+            self::Select_非精选 => '非精选',
         ];
     }
 
@@ -89,7 +111,7 @@ class Activity extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['price', 'origin_price'], 'number'],
-            [['start_time', 'end_time', 'updated_at','status'], 'safe'],
+            [['start_time', 'end_time', 'updated_at','status','is_hot','is_selected'], 'safe'],
             [['name', 'logo_url', 'background_url', 'address', 'detail', 'price_detail', 'everyone_comment', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
@@ -117,6 +139,8 @@ class Activity extends \yii\db\ActiveRecord
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
             'deleted_at' => '删除时间',
+            'is_hot' => '热门',
+            'is_selected' => '精选',
         ];
     }
 }
