@@ -16,7 +16,7 @@ class CardController extends BaseController
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
-        $query = Card::find();
+        $query = CardModel::find();
         $total_count = $query->count();
         $total_page = ceil($total_count / $per_page);
         $offset = ($page - 1) * $per_page;

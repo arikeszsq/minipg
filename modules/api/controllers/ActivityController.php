@@ -17,18 +17,18 @@ class ActivityController extends BaseController
      */
     public function actionLists()
     {
-        $user = $this->requireLoginUser();
-        if ($user['code'] != 200) {
-            return $user;
-        } else {
-            $user_id = $user['user_id'];
-        }
-        $user = $this->getUser($user_id);
+//        $user = $this->requireLoginUser();
+//        if ($user['code'] != 200) {
+//            return $user;
+//        } else {
+//            $user_id = $user['user_id'];
+//        }
+//        $user = $this->getUser($user_id);
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
-        $is_hot = $inputs['is_hot'];
-        $is_selected = $inputs['is_selected'];
+        $is_hot = $inputs['is_hot']??null;
+        $is_selected = $inputs['is_selected']??null;
         $query = Activity::find();
         $total_count = $query->count();
         $total_page = ceil($total_count / $per_page);

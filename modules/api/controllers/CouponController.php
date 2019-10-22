@@ -4,7 +4,7 @@
 namespace app\modules\api\controllers;
 
 
-use app\models\Coupon;
+use app\models\CouponModel;
 use Yii;
 
 class CouponController extends BaseController
@@ -14,13 +14,13 @@ class CouponController extends BaseController
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
-        $card_id = $inputs['card_id'];
-        $query = Coupon::find();
+        $card_id = $inputs['card_id']??null;
+        $query = CouponModel::find();
         $total_count = $query->count();
         $total_page = ceil($total_count / $per_page);
         $offset = ($page - 1) * $per_page;
         $coupons = $query
-            ->where(['card_id' => $card_id])
+            ->andFilterWhere(['card_id' => $card_id])
             ->offset($offset)
             ->limit($per_page)
             ->all();
