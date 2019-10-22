@@ -39,6 +39,10 @@ class PayController extends BaseController
         return $this->xmlstr_to_array($response);
     }
 
+    /**
+     * 购买会员卡成功，同时发放会员卡对应的优惠券
+     * @return array|\yii\db\ActiveRecord|null
+     */
     public function actionGetCard()
     {
         $user = $this->requireLoginUser();
@@ -70,5 +74,45 @@ class PayController extends BaseController
         } catch (\Exception $e) {
             $transaction->rollBack();
         }
+    }
+
+    /**
+     * 用户使用核销码
+     * @return array
+     */
+    public function actionUseCheckCode()
+    {
+        $user = $this->requireLoginUser();
+        if ($user['code'] != 200) {
+            return $user;
+        } else {
+            $user_id = $user['user_id'];
+        }
+        $inputs = Yii::$app->request->post();
+        $check_code = $inputs['check_code'];
+        $coupon_id = $inputs['coupon_id'];
+        $coupon = Coupon::find()->where(['id' => $coupon_id])->one();
+        if ($coupon->check_code != $check_code) {
+            return [
+                'code' => 101,
+                'msg' => '核销码输入错误'
+            ];
+        }
+        $user_coupon = UserCoupon::find()->where(['user_id' => $user_id])->one();
+        if ($user_coupon->stay_num <= 0) {
+            return [
+                'code' => 102,
+                'msg' => '您的没有优惠券了！！！'
+            ];
+        }
+        $user_coupon->stay_num = $user_coupon->stay_num - 1;
+
+        if ($user_coupon->save()) {
+            return [
+                'code' => 200,
+                'msg' => '消费成功！！！'
+            ];
+        }
+
     }
 }
