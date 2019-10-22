@@ -33,6 +33,20 @@ class CardController extends BaseController
         ];
     }
 
+    public function actionDetail()
+    {
+        $inputs = Yii::$app->request->get();
+        $card_id = $inputs['card_id'];
+        $detail = Card::find()
+            ->where(['id'=>$card_id])
+            ->with('coupons')
+            ->with('activities')
+            ->one();
+        return [
+            'code'=>200,
+            'data'=>$detail
+        ];
+    }
 
 
 }

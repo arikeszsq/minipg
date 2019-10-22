@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Activity;
+use app\modules\admin\service\CardService;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->label('活动名称')->textInput(['maxlength' => true]) ?>
+
+    <?php echo $form->field($model, 'card_name')->label('会员卡')->dropDownList(((new CardService())->getCardNameList()), ['prompt'=>'请选择']); ?>
 
     <?= $form->field($model, 'price')->label('价格')->textInput(['maxlength' => true]) ?>
 

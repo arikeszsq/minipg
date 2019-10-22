@@ -111,7 +111,7 @@ class Activity extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['price', 'origin_price'], 'number'],
-            [['start_time', 'end_time', 'updated_at','status','is_hot','is_selected'], 'safe'],
+            [['start_time', 'end_time', 'updated_at','status','is_hot','is_selected','card_name'], 'safe'],
             [['name', 'logo_url', 'background_url', 'address', 'detail', 'price_detail', 'everyone_comment', 'created_at', 'deleted_at'], 'string', 'max' => 255],
         ];
     }
@@ -124,6 +124,7 @@ class Activity extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => '活动名称',
+            'card_name' =>'会员卡名',
             'status' => '状态',
             'price' => '价格',
             'count' => 'Count',

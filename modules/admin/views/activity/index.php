@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '活动名称',
                 'attribute' => 'name',
             ],
+            'card_name',
 
 //            [
 //                'label' => '状态',

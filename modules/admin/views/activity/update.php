@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Activity;
+use app\modules\admin\service\CardService;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -17,6 +18,8 @@ $this->params['breadcrumbs'][] = '更新';
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <?php echo $form->field($model, 'card_name')->label('会员卡')->dropDownList(((new CardService())->getCardNameList()), ['prompt'=>'请选择']); ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
@@ -49,7 +52,7 @@ $this->params['breadcrumbs'][] = '更新';
     <?= $form->field($model, 'price_detail')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'everyone_comment')->textInput(['maxlength' => true]) ?>
-    
+
     <?php echo $form->field($model, 'is_hot')->label('热门')->dropDownList(Activity::hotDropdownList(), ['prompt'=>'请选择']) ?>
 
     <?php echo $form->field($model, 'is_selected')->label('精选')->dropDownList(Activity::selectDropdownList(), ['prompt'=>'请选择']) ?>

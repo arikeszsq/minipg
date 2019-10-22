@@ -27,11 +27,15 @@ class ActivityController extends BaseController
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
+        $is_hot = $inputs['is_hot'];
+        $is_selected = $inputs['is_selected'];
         $query = Activity::find();
         $total_count = $query->count();
         $total_page = ceil($total_count / $per_page);
         $offset = ($page - 1) * $per_page;
         $activities = $query
+            ->andFilterWhere(['is_hot' => $is_hot])
+            ->andFilterWhere(['is_selected' => $is_selected])
             ->offset($offset)
             ->limit($per_page)
             ->all();

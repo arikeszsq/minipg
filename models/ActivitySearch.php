@@ -18,7 +18,7 @@ class ActivitySearch extends Activity
     {
         return [
             [['id', 'count'], 'integer'],
-            [['name', 'status', 'logo_url', 'background_url', 'start_time', 'end_time', 'address', 'detail', 'price_detail', 'everyone_comment', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['name','card_name', 'status', 'logo_url', 'background_url', 'start_time', 'end_time', 'address', 'detail', 'price_detail', 'everyone_comment', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['price', 'origin_price'], 'number'],
         ];
     }
@@ -69,6 +69,7 @@ class ActivitySearch extends Activity
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'card_name', $this->status])
             ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'logo_url', $this->logo_url])
             ->andFilterWhere(['like', 'background_url', $this->background_url])

@@ -105,4 +105,14 @@ class Card extends \yii\db\ActiveRecord
             'deleted_at' => 'Deleted At',
         ];
     }
+
+    public function getCoupons()
+    {
+        return $this->hasMany(Coupon::className(), ['card_id' => 'id']);
+    }
+
+    public function getActivities()
+    {
+        return $this->hasMany(Activity::className(), ['card_name' => 'name']);
+    }
 }
