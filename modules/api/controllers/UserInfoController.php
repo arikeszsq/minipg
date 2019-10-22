@@ -4,14 +4,14 @@
 namespace app\modules\api\controllers;
 
 
-use app\models\UserInfo;
+use app\models\UserCard;
 use Yii;
 
 class UserInfoController extends BaseController
 {
     public function actionAdd()
     {
-        $user_info = new UserInfo();
+        $user_info = new UserCard();
         $user_info->load(Yii::$app->request->post());
         if ($user_info->save()) {
             return [

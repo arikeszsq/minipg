@@ -40,7 +40,7 @@ class PayController extends BaseController
     }
 
     /**
-     * 购买会员卡成功，同时发放会员卡对应的优惠券
+     * 购买会员卡成功，成为会员，同时发放会员卡对应的优惠券
      * @return array|\yii\db\ActiveRecord|null
      */
     public function actionGetCard()
@@ -113,6 +113,5 @@ class PayController extends BaseController
                 'msg' => '消费成功！！！'
             ];
         }
-
     }
 }
