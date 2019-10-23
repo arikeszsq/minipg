@@ -67,7 +67,11 @@ class EventController extends BaseController
     {
         $model = new Event();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if(!empty(Yii::$app->request->post()['Event']['background_url'])){
+                $model->background_url = json_encode(Yii::$app->request->post()['Event']['background_url']);
+            };
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

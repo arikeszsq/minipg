@@ -32,7 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'card_name',
-            'status',
+            [
+                'label' => '热门',
+                'value' => $model::getStatusTxt($model->status)
+            ],
             'logo_url:url',
             'background_url:url',
             'start_time',
@@ -41,12 +44,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'detail',
             'price',
             'price_detail',
-            'is_hot',
-            'is_recommand',
-            'need_vip',
-            'created_at',
-            'updated_at',
-            'deleted_at',
+            [
+                'label' => '热门',
+                'value' => $model::getStatusTxt($model->is_hot)
+            ],
+            [
+                'label' => '推荐',
+                'value' => $model::getSelectTxt($model->is_recommand)
+            ],
+            [
+                'label' => '需要vip',
+                'value' => $model::getVipTxt($model->need_vip)
+            ],
         ],
     ]) ?>
 

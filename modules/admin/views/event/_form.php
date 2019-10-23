@@ -2,6 +2,7 @@
 
 use app\models\Event;
 use app\modules\admin\service\CardService;
+use manks\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -22,7 +23,16 @@ use yii\widgets\ActiveForm;
 
     <?php echo $form->field($model, 'logo_url')->widget('manks\FileInput', []); ?>
 
-    <?= $form->field($model, 'background_url')->textInput(['maxlength' => true]) ?>
+
+    <?php
+    echo $form->field($model, 'background_url')->widget('manks\FileInput', [
+        'clientOptions' => [
+            'pick' => [
+                'multiple' => true,
+            ],
+        ],
+    ]); ?>
+
 
     <?= $form->field($model, 'start_time')->widget(kartik\datetime\DateTimePicker::className(), [
         'readonly' => false,

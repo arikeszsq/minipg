@@ -47,7 +47,7 @@ class EventGii extends \yii\db\ActiveRecord
             [['start_time', 'end_time', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['price'], 'number'],
             [['name', 'card_name'], 'string', 'max' => 50],
-            [['logo_url', 'background_url', 'address', 'detail', 'price_detail', 'is_recommand'], 'string', 'max' => 255],
+            [['logo_url', 'address', 'detail', 'price_detail', 'is_recommand'], 'string', 'max' => 255],
         ];
     }
 

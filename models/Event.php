@@ -69,6 +69,19 @@ class Event extends EventGii
         return $array[$num];
     }
 
+
+    public static function getSelectTxt($num)
+    {
+        $array = self::selectDropdownList();
+        return $array[$num];
+    }
+
+    public static function getVipTxt($num)
+    {
+        $array = self::vipDropdownList();
+        return $array[$num];
+    }
+
     public function behaviors()
     {
         return [
