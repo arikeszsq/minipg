@@ -12,7 +12,6 @@ $this->params['breadcrumbs'][] = '更新';
 ?>
 <div class="card-update">
 
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

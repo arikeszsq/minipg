@@ -21,9 +21,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status') ?>
 
-    <?= $form->field($model, 'pic_url') ?>
+    <?= $form->field($model, 'valid_time_start') ?>
 
-    <?= $form->field($model, 'origin_price') ?>
+    <?= $form->field($model, 'valid_time_end') ?>
+
+    <?php // echo $form->field($model, 'valid_time') ?>
+
+    <?php // echo $form->field($model, 'pic_url') ?>
+
+    <?php // echo $form->field($model, 'origin_price') ?>
 
     <?php // echo $form->field($model, 'count') ?>
 

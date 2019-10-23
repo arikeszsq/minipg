@@ -2,28 +2,14 @@
 
 namespace app\models;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
-/**
- * This is the model class for table "card".
- *
- * @property int $id
- * @property string $name
- * @property string $status
- * @property string $pic_url
- * @property string $origin_price
- * @property int $count
- * @property string $price
- * @property string $created_at
- * @property string $updated_at
- * @property string $deleted_at
- */
-class Card extends \yii\db\ActiveRecord
+class Card extends CardGii
 {
     const Status_使用中 = 1;
     const Status_已绝版 = 2;
+    const Status_预发售 = 3;
 
     /**
      * 状态下拉选项
@@ -34,6 +20,7 @@ class Card extends \yii\db\ActiveRecord
         return [
             self::Status_使用中 => '使用中',
             self::Status_已绝版 => '已绝版',
+            self::Status_预发售 => '预发售',
         ];
     }
 
@@ -66,43 +53,11 @@ class Card extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * 关联优惠券表
+     * @return \yii\db\ActiveQuery
      */
-    public static function tableName()
+    public function getCouponModels()
     {
-        return 'card';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name'], 'required'],
-            [['origin_price', 'price'], 'number'],
-            [['updated_at', 'valid_time','coupons'], 'safe'],
-            [['name', 'status', 'pic_url', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => '名称',
-            'status' => '状态',
-            'valid_time' => '有效时常',
-            'pic_url' => '图片',
-            'origin_price' => 'Origin Price',
-            'count' => 'Count',
-            'price' => '价格',
-            'created_at' => '创建时间',
-            'updated_at' => 'Updated At',
-            'deleted_at' => 'Deleted At',
-        ];
+        return $this->hasMany(CouponModel::className(), ['card_id' => 'id']);
     }
 }

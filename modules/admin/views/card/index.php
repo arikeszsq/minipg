@@ -8,43 +8,41 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CardSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '会员卡管理';
+$this->title = '会员卡列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card-index">
     <p>
-        <?= Html::a('新建会员卡', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('新建', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
             [
-                'format' => 'raw',
+                "format" => 'raw',
                 'value' => function ($model) {
-                    return '<img src="' . $model->pic_url . '" width=50px;height=50px;>';
+                    return Html::img($model->pic_url, ["width" => "30", "height" => "30"]);
                 },
             ],
+
             'name',
-//            'status',
-//            'origin_price',
-            //'count',
             'price',
             'created_at',
-            'valid_time',
-            //'updated_at',
-            //'deleted_at',
+
             [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if (!empty($model->status)) {
-                        return Card::getStatusTxt($model->status);
+                    if (intval($model->status) == Card::Status_使用中) {
+                        return '<span style="color: red;">使用中</span>';
+                    } elseif (intval($model->status) == Card::Status_已绝版) {
+                        return '<span style="color: blueviolet;">已绝版</span>';
                     } else {
-                        return '';
+                        return '<span style="color: yellowgreen;">预发售</span>';
                     }
                 },
             ],

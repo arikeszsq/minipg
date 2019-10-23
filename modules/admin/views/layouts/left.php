@@ -15,9 +15,9 @@
                     ['label' => '消费记录', 'icon' => 'circle-o', 'url' => ['/admin/consum-log/index']],
                     ['label' => '用户优惠卷', 'icon' => 'dashboard', 'url' => ['/admin/user-coupon/index']],
 
-                    ['label' => '用户活动收藏', 'icon' => 'circle-o', 'url' => ['/admin/user-activity-collect/index']],
-                    ['label' => '用户活动评价', 'icon' => 'file-code-o', 'url' => ['/admin/user-activity-comment/index']],
-                    ['label' => '用户活动报名', 'icon' => 'dashboard', 'url' => ['/admin/user-activity-enroll/index']],
+//                    ['label' => '用户活动收藏', 'icon' => 'circle-o', 'url' => ['/admin/user-activity-collect/index']],
+//                    ['label' => '用户活动评价', 'icon' => 'file-code-o', 'url' => ['/admin/user-activity-comment/index']],
+                    ['label' => '活动报名表', 'icon' => 'dashboard', 'url' => ['/admin/user-activity-enroll/index']],
                 ],
             ]
         ) ?>

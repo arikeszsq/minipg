@@ -18,7 +18,8 @@ class CardSearch extends Card
     {
         return [
             [['id', 'count'], 'integer'],
-            [['name', 'status', 'pic_url', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['name', 'valid_time_start', 'valid_time_end', 'valid_time', 'pic_url', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+//            [['name', 'status', 'valid_time_start', 'valid_time_end', 'valid_time', 'pic_url', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['origin_price', 'price'], 'number'],
         ];
     }
@@ -60,17 +61,20 @@ class CardSearch extends Card
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'valid_time_start' => $this->valid_time_start,
+            'valid_time_end' => $this->valid_time_end,
             'origin_price' => $this->origin_price,
             'count' => $this->count,
             'price' => $this->price,
+            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'pic_url', $this->pic_url])
-            ->andFilterWhere(['like', 'created_at', $this->created_at])
-            ->andFilterWhere(['like', 'deleted_at', $this->deleted_at]);
+//            ->andFilterWhere(['like', 'status', $this->status])
+//            ->andFilterWhere(['like', 'valid_time', $this->valid_time])
+            ->andFilterWhere(['like', 'pic_url', $this->pic_url]);
 
         return $dataProvider;
     }

@@ -5,7 +5,6 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Card;
 use app\models\CardSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
