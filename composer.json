@@ -22,7 +22,8 @@
         "dmstr/yii2-adminlte-asset": "2.*",
         "bailangzhan/yii2-webuploader": "dev-master",
         "kartik-v/yii2-widget-datetimepicker": "*",
-        "kartik-v/yii2-widget-fileinput": "@dev"
+        "kartik-v/yii2-widget-fileinput": "@dev",
+        "kucha/ueditor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -68,7 +69,7 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://asset-packagist.org"
+            "url": "https://mirrors.aliyun.com/composer/"
         }
     ]
 }
