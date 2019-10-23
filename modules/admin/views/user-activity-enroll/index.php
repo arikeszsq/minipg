@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserActivityEnrollSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '活动报名';
+$this->title = '活动报名表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-activity-enroll-index">
@@ -17,10 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'activity_id',
+            'user_name',
+            'activity_name',
+            'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

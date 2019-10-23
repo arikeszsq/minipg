@@ -19,7 +19,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id') ?>
 
+    <?= $form->field($model, 'user_name') ?>
+
     <?= $form->field($model, 'activity_id') ?>
+
+    <?= $form->field($model, 'activity_name') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
+
+    <?php // echo $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'deleted_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

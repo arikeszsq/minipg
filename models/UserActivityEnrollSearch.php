@@ -17,7 +17,8 @@ class UserActivityEnrollSearch extends UserActivityEnroll
     public function rules()
     {
         return [
-            [['user_id', 'activity_id'], 'integer'],
+            [['id', 'user_id', 'activity_id'], 'integer'],
+            [['user_name', 'activity_name', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -60,7 +61,13 @@ class UserActivityEnrollSearch extends UserActivityEnroll
             'id' => $this->id,
             'user_id' => $this->user_id,
             'activity_id' => $this->activity_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ]);
+
+        $query->andFilterWhere(['like', 'user_name', $this->user_name])
+            ->andFilterWhere(['like', 'activity_name', $this->activity_name]);
 
         return $dataProvider;
     }

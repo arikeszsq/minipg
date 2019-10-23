@@ -50,11 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'price_detail')->label('费用说明')->textArea(['rows' => 2]) ?>
 
-    <?= $form->field($model, 'everyone_comment')->label('大家说')->textArea(['rows' => 2]) ?>
-
     <?php echo $form->field($model, 'is_hot')->label('热门')->dropDownList(Activity::hotDropdownList(), ['prompt'=>'请选择']) ?>
 
     <?php echo $form->field($model, 'is_selected')->label('精选')->dropDownList(Activity::selectDropdownList(), ['prompt'=>'请选择']) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>

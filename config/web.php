@@ -44,16 +44,26 @@ $config = [
             ],
         ],
         'db' => $db,
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,  //开启美化url配置,默认关闭
+//            'enableStrictParsing' => false, //不启用严格解析，默认不启用.如果设置为true,则必须建立rules规则，且路径必须符合一条以上规则才允许访问
+//            'showScriptName' => false, //隐藏index.php  false:隐藏， true：不隐藏
+//            'rules' => [
+//                '<controller:\w+>/'=>'<controller>/index',
+//                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+//                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+//            ]
+//        ],
+
         'urlManager' => [
-            'enablePrettyUrl' => true,  //开启美化url配置,默认关闭
-            'enableStrictParsing' => false, //不启用严格解析，默认不启用.如果设置为true,则必须建立rules规则，且路径必须符合一条以上规则才允许访问
-            'showScriptName' => false, //隐藏index.php
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
+            'showScriptName' => false,
             'rules' => [
-                '<controller:\w+>/'=>'<controller>/index',
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ]
         ],
+
+
     ],
     'modules' => [
         'admin' => [

@@ -5,7 +5,6 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\UserActivityEnroll;
 use app\models\UserActivityEnrollSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
