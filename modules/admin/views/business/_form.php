@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Business;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,11 +15,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tag')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'logo')->widget('manks\FileInput', []);?>
-
-    <?= $form->field($model, 'banner')->widget('manks\FileInput', []);?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
@@ -26,15 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'valid_age_end')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'detail')->textArea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'valid_age_start')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'detail')->textArea(['rows' => 2]) ?>
-
-    <?= $form->field($model, 'coupon_detail')->textArea(['rows' => 2]) ?>
-
-    <?php echo $form->field($model, 'status')->dropDownList(\app\models\Business::statusDropdownList(), ['prompt'=>'请选择']) ?>
+    <?php echo $form->field($model, 'status')->dropDownList(Business::statusDropdownList(), ['prompt'=>'请选择']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
