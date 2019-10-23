@@ -4,7 +4,7 @@
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => '活动列表', 'icon' => 'file-code-o', 'url' => ['/admin/activity/index']],
+                    ['label' => '活动列表', 'icon' => 'file-code-o', 'url' => ['/admin/event/index']],
                     ['label' => '会员卡', 'icon' => 'circle-o', 'url' => ['/admin/card/index']],
                     ['label' => '商家管理', 'icon' => 'circle-o', 'url' => ['/admin/business/index']],
                     ['label' => '优惠券', 'icon' => 'circle-o', 'url' => ['/admin/coupon/index']],
