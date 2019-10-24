@@ -34,7 +34,7 @@ use yii\db\ActiveRecord;
  * @property string $updated_at
  * @property string $deleted_at
  */
-class Coupon extends \yii\db\ActiveRecord
+class Coupon extends CouponGii
 {
     const Status_有效 = 1;
     const Status_失效 = 2;
@@ -61,14 +61,6 @@ class Coupon extends \yii\db\ActiveRecord
         return $array[$num];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'coupon';
-    }
-
     public function behaviors()
     {
         return [
@@ -85,50 +77,19 @@ class Coupon extends \yii\db\ActiveRecord
             ]
         ];
     }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function rules()
+//    {
+//        return [
+//            [['card_name','name'], 'required'],
+//            [['price','suitable_age_start','suitable_age_end','total_num'], 'number'],
+//            [['valid_time', 'valid_time_start', 'valid_time_end', 'updated_at','business_id','business_name'], 'safe'],
+//            [['card_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'using_flow', 'using_detail', 'check_code', 'created_at', 'deleted_at'], 'string', 'max' => 255],
+//        ];
+//    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['card_name','name'], 'required'],
-            [['price','suitable_age_start','suitable_age_end','total_num'], 'number'],
-            [['valid_time', 'valid_time_start', 'valid_time_end', 'updated_at','business_id','business_name'], 'safe'],
-            [['card_name', 'pic_url', 'name', 'description', 'tag', 'suitable_age_end', 'suitable_age_start', 'suitable_age', 'status', 'using_flow', 'using_detail', 'check_code', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-        ];
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'card_id' => '会员卡ID',
-            'business_id' => '商家ID',
-            'card_name' => '卡名',
-            'business_name' => '商家名',
-            'pic_url' => 'Pic Url',
-            'name' => '优惠卷名',
-            'description' => '描述',
-            'tag' => '标签',
-            'suitable_age_end' => '适应最小年龄',
-            'suitable_age_start' => '适应最大年龄',
-            'suitable_age' => '适应年龄',
-            'price' => '价格',
-            'total_num' => '总数',
-            'status' => '状态',
-            'valid_time' => '有效时间',
-            'valid_time_start' => '有效开始时间',
-            'valid_time_end' => '有效结束时间',
-            'using_flow' => '使用流程',
-            'using_detail' => '使用详情',
-            'check_code' => '核销码',
-            'created_at' => '创建时间',
-            'updated_at' => '更新时间',
-            'deleted_at' => '删除时间',
-        ];
-    }
 }

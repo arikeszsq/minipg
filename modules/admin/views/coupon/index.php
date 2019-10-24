@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Coupon;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -25,29 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'format' => 'raw',
+                "format" => 'raw',
                 'value' => function ($model) {
-                    return '<img src="'.$model->pic_url.'" width=50px;height=50px;>';
+                    return Html::img($model->pic_url, ["width" => "30", "height" => "30"]);
                 },
             ],
             'card_name',
             'name',
-            'description',
-//            'tag',
-//            'suitable_age_end',
-//            'suitable_age_start',
-//            'suitable_age',
             'price',
             'total_num',
-//            'status',
-//            'valid_time',
-//            'valid_time_start',
-//            'valid_time_end',
-//            'using_flow',
-//            'using_detail',
-//            'check_code',
+            'check_code',
             'created_at',
-
+            [
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if (intval($model->status) == Coupon::Status_有效) {
+                        return '<span style="color: red;">有效</span>';
+                    } else {
+                        return '<span style="color: yellowgreen;">失效</span>';
+                    }
+                },
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

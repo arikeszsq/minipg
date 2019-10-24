@@ -27,28 +27,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'card_id',
             'card_name',
-            'pic_url:url',
+            [
+                'label' => '卡图',
+                'value' => $model->pic_url,
+                'format' => [
+                    'image',
+                    [
+                        'width' => '84',
+                        'height' => '84'
+                    ]
+
+                ],
+            ],
             'name',
             'description',
             'tag',
-            'suitable_age_end',
             'suitable_age_start',
-            'suitable_age',
+            'suitable_age_end',
             'price',
             'total_num',
-            'status',
-            'valid_time',
             'valid_time_start',
             'valid_time_end',
             'using_flow',
             'using_detail',
             'check_code',
             'created_at',
-            'updated_at',
-            'deleted_at',
+            'updated_at'
         ],
     ]) ?>
 
