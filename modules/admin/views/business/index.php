@@ -20,6 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                "format" => 'raw',
+                'value' => function ($model) {
+                    return Html::img($model->logo, ["width" => "30", "height" => "30"]);
+                },
+            ],
             'name',
             'code',
 //            'logo',

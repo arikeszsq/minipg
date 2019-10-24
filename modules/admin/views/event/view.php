@@ -36,8 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'logo',
                 'value' => $model->logo_url,
-                'format' => 'image',
-                'width' => '50px;'
+                'format' => [
+                    'image',
+                    [
+                        'width' => '84',
+                        'height' => '84'
+                    ]
+
+                ],
             ],
             'background_url:url',
             'start_time',

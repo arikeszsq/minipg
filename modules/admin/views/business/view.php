@@ -29,24 +29,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'code',
-            'tag',
-            'logo',
-            'banner',
+            [
+                'label' => 'logo',
+                'value' => $model->logo,
+                'format' => [
+                    'image',
+                    [
+                        'width' => '84',
+                        'height' => '84'
+                    ]
+
+                ],
+            ],
             'phone',
             'wx_num',
             'address',
-            'valid_age_end',
-            'valid_age_start',
-            'valid_age',
             'detail',
-            'coupon_detail',
             'status',
             'created_at',
             'updated_at',
-            'deleted_at',
         ],
     ]) ?>
 

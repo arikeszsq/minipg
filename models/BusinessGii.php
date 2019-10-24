@@ -42,10 +42,10 @@ class BusinessGii extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'phone', 'address'], 'required'],
-            [['updated_at', 'code'], 'safe'],
-            [['name', 'code', 'logo', 'banner', 'phone', 'address', 'tag', 'valid_age_end', 'valid_age_start', 'valid_age', 'detail', 'coupon_detail', 'status', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-            [['wx_num'], 'string', 'max' => 11],
+            [['name', 'phone', 'address', 'status'], 'required'],
+            [['updated_at', 'code', 'detail'], 'safe'],
+            [['name', 'wx_num', 'logo', 'banner', 'address', 'tag', 'valid_age_end', 'valid_age_start', 'valid_age', 'coupon_detail', 'created_at', 'deleted_at'], 'string', 'max' => 255],
+            [['phone'], 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/'],
         ];
     }
 
@@ -56,23 +56,23 @@ class BusinessGii extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'code' => 'Code',
+            'name' => '商家名',
+            'code' => '商家码',
             'logo' => 'Logo',
             'banner' => 'Banner',
-            'phone' => 'Phone',
-            'wx_num' => 'Wx Num',
-            'address' => 'Address',
+            'phone' => '手机号',
+            'wx_num' => '微信号',
+            'address' => '地址',
             'tag' => 'Tag',
             'valid_age_end' => 'Valid Age End',
             'valid_age_start' => 'Valid Age Start',
             'valid_age' => 'Valid Age',
-            'detail' => 'Detail',
+            'detail' => '详情',
             'coupon_detail' => 'Coupon Detail',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'deleted_at' => 'Deleted At',
+            'status' => '状态',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
+            'deleted_at' => '删除时间',
         ];
     }
 }

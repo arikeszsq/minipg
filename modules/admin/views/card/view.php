@@ -38,8 +38,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '卡图',
                 'value' => $model->pic_url,
-                'format' => 'image',
-                'width' => '50px;'
+                'format' => [
+                    'image',
+                    [
+                        'width' => '84',
+                        'height' => '84'
+                    ]
+
+                ],
             ],
             'price',
             'created_at',

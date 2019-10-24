@@ -68,9 +68,7 @@ class BusinessController extends BaseController
 
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $params = Yii::$app->request->post();
-            $model->code = rand(100000,999999);
-            $model->valid_age = $params['Business']['valid_age_start'].'-'.$params['Business']['valid_age_end'];
+            $model->code = rand(100000, 999999);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
