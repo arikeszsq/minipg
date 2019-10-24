@@ -4,6 +4,7 @@
 namespace app\modules\api\controllers;
 
 
+use app\models\UserCard;
 use app\models\UserInfo;
 use app\modules\api\traits\TokenTrait;
 use Yii;
@@ -73,5 +74,22 @@ class BaseController extends Controller
             return $ret;
         }
         $user_id = $ret['user_id'];
+    }
+
+    public function print_sql()
+    {
+        $query = UserCard::find()->with('card')->one();
+        $commandQuery = clone $query;
+        var_dump($commandQuery->createCommand()->getRawSql());
+        exit;
+    }
+
+    public function use_origin_sql()
+    {
+        $connection = Yii::$app->db;
+        $sql = "SELECT * FROM user_card LEFT JOIN `card` ON user_card.card_id = card.id ";
+        $command = $connection->createCommand($sql);
+        $res = $command->query($sql);
+        return $res;
     }
 }

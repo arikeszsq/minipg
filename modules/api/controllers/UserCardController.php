@@ -12,12 +12,11 @@ class UserCardController extends BaseController
 {
     public function actionLists()
     {
-//        $ret = $this->requireLogin();
-//        if ($ret['code'] != 200) {
-//            return $ret;
-//        }
-//        $user_id = $ret['user_id'];
-        $user_id = 1;
+        $ret = $this->requireLogin();
+        if ($ret['code'] != 200) {
+            return $ret;
+        }
+        $user_id = $ret['user_id'];
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
@@ -25,6 +24,7 @@ class UserCardController extends BaseController
         $total_count = $query->count();
         $total_page = ceil($total_count / $per_page);
         $offset = ($page - 1) * $per_page;
+
         $user_cards = $query
             ->where(['user_id' => $user_id])
             ->offset($offset)
