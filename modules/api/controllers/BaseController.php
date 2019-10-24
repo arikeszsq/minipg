@@ -36,7 +36,7 @@ class BaseController extends Controller
         return parent::afterAction($action, $result);
     }
 
-    public function requireLoginUser()
+    public function requireLogin()
     {
         if (isset($_REQUEST['token']) && !empty($_REQUEST['token'])) {
             $token = $_REQUEST['token'];
@@ -64,5 +64,14 @@ class BaseController extends Controller
     {
         $user = UserInfo::find()->where(['id' => $user_id])->one();
         return $user;
+    }
+
+    public function demo()
+    {
+        $ret = $this->requireLogin();
+        if ($ret['code'] != 200) {
+            return $ret;
+        }
+        $user_id = $ret['user_id'];
     }
 }
