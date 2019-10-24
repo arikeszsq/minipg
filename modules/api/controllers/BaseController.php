@@ -78,7 +78,7 @@ class BaseController extends Controller
 
     public function print_sql()
     {
-        $query = UserCard::find()->with('card')->one();
+        $query = UserCard::find()->with('card');
         $commandQuery = clone $query;
         var_dump($commandQuery->createCommand()->getRawSql());
         exit;
