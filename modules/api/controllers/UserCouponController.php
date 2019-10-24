@@ -11,12 +11,11 @@ class UserCouponController extends BaseController
 {
     public function actionLists()
     {
-        $user = $this->requireLoginUser();
-        if ($user['code'] != 200) {
-            return $user;
-        } else {
-            $user_id = $user['user_id'];
+        $ret = $this->requireLogin();
+        if ($ret['code'] != 200) {
+            return $ret;
         }
+        $user_id = $ret['user_id'];
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
