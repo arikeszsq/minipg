@@ -5,6 +5,8 @@ namespace app\modules\api\controllers;
 
 
 use app\models\Event;
+use app\models\EventEnroll;
+use app\models\UserCard;
 use Yii;
 
 class EventController extends BaseController
@@ -46,59 +48,44 @@ class EventController extends BaseController
     }
 
     /**
-     * 收藏活动
-     * @return array|\yii\db\ActiveRecord|null
-     */
-    public function actionCollect()
-    {
-        $user = $this->requireLoginUser();
-        if ($user['code'] != 200) {
-            return $user;
-        } else {
-            $user_id = $user['user_id'];
-        }
-        $activity_id = Yii::$app->request->post('activity_id');
-        $user_activity_collect = new UserActivityCollect();
-        $user_activity_collect->user_id = $user_id;
-        $user_activity_collect->activity_id = $activity_id;
-        if ($user_activity_collect->save()) {
-            return [
-                'code' => 200,
-                'msg' => '收藏成功'
-            ];
-        } else {
-            return [
-                'code' => 100,
-                'msg' => '收藏失败'
-            ];
-        }
-    }
-
-    /**
      * 活动报名
-     * @return array|\yii\db\ActiveRecord|null
+     * @return array
      */
     public function actionEnroll()
     {
-        $user = $this->requireLoginUser();
-        if ($user['code'] != 200) {
-            return $user;
-        } else {
-            $user_id = $user['user_id'];
+        $ret = $this->requireLogin();
+        if ($ret['code'] != 200) {
+            return $ret;
         }
-        $activity_id = Yii::$app->request->post('activity_id');
-        $user_activity_enroll = new UserActivityEnroll();
-        $user_activity_enroll->user_id = $user_id;
-        $user_activity_enroll->activity_id = $activity_id;
-        if ($user_activity_enroll->save()) {
+        $user_id = $ret['user_id'];
+        $inputs = Yii::$app->request->post();
+        $event_id = $inputs['event_id'];
+        $event = Event::findOne($event_id);
+        if ($event->need_vip == Event::Vip_需要) {
+            $user_cards = UserCard::find()
+                ->where(['user_id'=>$user_id])
+                ->andWhere(['valid_time_end','>',$event->created_at])
+                ->asArray()
+                ->all();
+            if(count($user_cards)<=0){
+                return [
+                    'code' => 102,
+                    'msg' => '没有报名资格，请先开通会员卡'
+                ];
+            }
+        }
+        $enroll = new EventEnroll();
+        $enroll->user_id = $user_id;
+        $enroll->event_id = $event_id;
+        if ($enroll->save()) {
             return [
                 'code' => 200,
-                'msg' => '收藏成功'
+                'msg' => '报名成功'
             ];
         } else {
             return [
-                'code' => 100,
-                'msg' => '收藏失败'
+                'code' => 101,
+                'msg' => '报名失败'
             ];
         }
     }
