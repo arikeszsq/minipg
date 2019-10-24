@@ -5,8 +5,6 @@ namespace app\modules\api\controllers;
 
 
 use app\models\Card;
-use app\models\CardModel;
-use app\models\CouponModel;
 use Yii;
 
 class CardController extends BaseController
@@ -16,7 +14,7 @@ class CardController extends BaseController
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
-        $query = CardModel::find();
+        $query = Card::find();
         $total_count = $query->count();
         $total_page = ceil($total_count / $per_page);
         $offset = ($page - 1) * $per_page;
@@ -43,15 +41,15 @@ class CardController extends BaseController
     {
         $inputs = Yii::$app->request->get();
         $card_id = $inputs['card_id'];
-        $card = CardModel::find()
-//            ->with('couponModels')
-            ->where(['id'=>$card_id])
+        $card = Card::find()
+            ->with('coupons')
+            ->where(['id' => $card_id])
             ->one();
         return [
-            'code'=>200,
-            'msg'=>'成功获取',
-            'card'=>$card,
-            'coupons'=>$card->couponModels
+            'code' => 200,
+            'msg' => '成功获取',
+            'card' => $card,
+            'coupons' => $card->coupons
         ];
     }
 

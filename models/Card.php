@@ -5,6 +5,9 @@ namespace app\models;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
+/**
+* @property $coupons
+*/
 class Card extends CardGii
 {
     const Status_使用中 = 1;
@@ -56,8 +59,8 @@ class Card extends CardGii
      * 关联优惠券表
      * @return \yii\db\ActiveQuery
      */
-    public function getCouponModels()
+    public function getCoupons()
     {
-        return $this->hasMany(CouponModel::className(), ['card_id' => 'id']);
+        return $this->hasMany(Coupon::className(), ['card_id' => 'id']);
     }
 }

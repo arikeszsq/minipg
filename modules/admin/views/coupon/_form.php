@@ -28,9 +28,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tag')->label('标签 (实例：艺术，体育，音乐)')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'suitable_age_end')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'suitable_age_start')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'suitable_age_end')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
