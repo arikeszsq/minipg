@@ -1,5 +1,5 @@
 <?php
-namespace Lib\Minipg;
+namespace app\Lib\wechat;
 /**
  * error code 说明.
  * <ul>

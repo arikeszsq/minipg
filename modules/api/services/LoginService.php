@@ -10,19 +10,25 @@ class LoginService
 {
     use TokenTrait;
 
-    public function login($info)
+    public function login($data)
     {
-        $open_id = $info['openId'];
-        $nick_name = $info['nickName'];
+        $info = json_decode($data);
+        $open_id = $info->openId;
+        $nick_name = $info->nickName;
         $user_info = new UserInfo();
-        $user_info->openid = $open_id;
+        $user_info->open_id = $open_id;
         $user_info->username = $nick_name;
-        $user_info->save();
-        $user_id = $user_info->id;
-        $token = $this->encrypt($user_id);
+        if ($user_info->save()) {
+            $user_id = $user_info->id;
+            $token = $this->encrypt($user_id);
+            return [
+                'username' => $nick_name,
+                'token' => $token
+            ];
+        }
         return [
-            'username' => $nick_name,
-            'token' => $token
+            'code' => 300,
+            'msg' => '保存失败！！！'
         ];
     }
 
