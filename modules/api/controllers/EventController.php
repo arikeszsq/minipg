@@ -57,7 +57,9 @@ class EventController extends BaseController
         if ($ret['code'] != 200) {
             return $ret;
         }
-        $user_id = $ret['user_id'];
+        $open_id = $ret['open_id'];
+        $user = $this->getUser($open_id);
+        $user_id = $user->id;
         $inputs = Yii::$app->request->post();
         $event_id = $inputs['event_id'];
         $event = Event::findOne($event_id);

@@ -11,13 +11,19 @@ use yii\helpers\ArrayHelper;
 
 class UserCardController extends BaseController
 {
+    /**
+     * 我的会员卡列表
+     * @return array
+     */
     public function actionLists()
     {
         $ret = $this->requireLogin();
         if ($ret['code'] != 200) {
             return $ret;
         }
-        $user_id = $ret['user_id'];
+        $open_id = $ret['open_id'];
+        $user = $this->getUser($open_id);
+        $user_id = $user->id;
         $inputs = Yii::$app->request->get();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
