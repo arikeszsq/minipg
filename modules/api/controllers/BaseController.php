@@ -3,8 +3,6 @@
 
 namespace app\modules\api\controllers;
 
-
-use app\models\UserCard;
 use app\models\UserInfo;
 use app\modules\api\traits\TokenTrait;
 use Yii;
@@ -41,11 +39,11 @@ class BaseController extends Controller
     {
         if (isset($_REQUEST['token']) && !empty($_REQUEST['token'])) {
             $token = $_REQUEST['token'];
-            $user_id = $this->decrypt($token);
-            if ($user_id) {
+            $open_id = $this->decrypt($token);
+            if ($open_id) {
                 return [
                     'code' => 200,
-                    'user_id' => $user_id
+                    'open_id' => $open_id
                 ];
             } else {
                 return [
@@ -61,35 +59,9 @@ class BaseController extends Controller
         }
     }
 
-    public function getUser($user_id)
+    public function getUser($open_id)
     {
-        $user = UserInfo::find()->where(['id' => $user_id])->one();
-        return $user;
-    }
-
-    public function demo()
-    {
-        $ret = $this->requireLogin();
-        if ($ret['code'] != 200) {
-            return $ret;
-        }
-        $user_id = $ret['user_id'];
-    }
-
-    public function print_sql()
-    {
-        $query = UserCard::find()->with('card');
-        $commandQuery = clone $query;
-        var_dump($commandQuery->createCommand()->getRawSql());
-        exit;
-    }
-
-    public function use_origin_sql()
-    {
-        $connection = Yii::$app->db;
-        $sql = "SELECT * FROM user_card LEFT JOIN `card` ON user_card.card_id = card.id ";
-        $command = $connection->createCommand($sql);
-        $res = $command->query($sql);
-        return $res;
+        $user_info = UserInfo::find()->where(['open_id' => $open_id])->one();
+        return $user_info;
     }
 }

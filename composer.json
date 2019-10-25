@@ -23,7 +23,8 @@
         "bailangzhan/yii2-webuploader": "dev-master",
         "kartik-v/yii2-widget-datetimepicker": "*",
         "kartik-v/yii2-widget-fileinput": "@dev",
-        "kucha/ueditor": "*"
+        "kucha/ueditor": "*",
+        "overtrue/wechat": "~4.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
