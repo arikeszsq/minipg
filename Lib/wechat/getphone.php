@@ -1,5 +1,5 @@
 <?php
-namespace Lib\Minipg;
+namespace Lib\wechat;
 
 //引入官方解密文件
 include_once "WXBizDataCrypt.php";
