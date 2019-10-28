@@ -7,27 +7,30 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '用户';
+$this->title = '用户管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-info-index">
-    <p>
-        <?= Html::a('新建', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
+
             'username',
-//            'real_name',
-            'mobile',
-//            'phone',
-            //'birthday',
-            //'baby_gender',
+            'phone',
+            'status',
+            'parent_name',
+            'parent_mobile',
+            'child_name',
+            'child_gender',
+            'child_birthday',
+            'child_age',
+            'is_vip',
             'created_at',
-            //'updated_at',
-            //'deleted_at',
+            'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

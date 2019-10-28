@@ -17,19 +17,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'user_id') ?>
+    <?= $form->field($model, 'open_id') ?>
 
     <?= $form->field($model, 'username') ?>
 
     <?= $form->field($model, 'real_name') ?>
 
-    <?= $form->field($model, 'mobile') ?>
+    <?= $form->field($model, 'phone') ?>
 
-    <?php // echo $form->field($model, 'phone') ?>
+    <?php // echo $form->field($model, 'status') ?>
 
-    <?php // echo $form->field($model, 'birthday') ?>
+    <?php // echo $form->field($model, 'parent_name') ?>
 
-    <?php // echo $form->field($model, 'baby_gender') ?>
+    <?php // echo $form->field($model, 'parent_mobile') ?>
+
+    <?php // echo $form->field($model, 'child_name') ?>
+
+    <?php // echo $form->field($model, 'child_gender') ?>
+
+    <?php // echo $form->field($model, 'child_birthday') ?>
+
+    <?php // echo $form->field($model, 'child_age') ?>
+
+    <?php // echo $form->field($model, 'is_vip') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

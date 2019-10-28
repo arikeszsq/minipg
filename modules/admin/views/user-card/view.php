@@ -7,33 +7,43 @@ use yii\widgets\DetailView;
 /* @var $model app\models\UserCard */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => '会员详情', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'User Cards', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="user-card-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'user_id',
+            'user_name',
+            'open_id',
             'card_id',
             'card_name',
+            'card_num',
             'status',
             'valid_time_start',
             'valid_time_end',
             'valid_time',
+            'cipher',
             'created_at',
             'updated_at',
             'deleted_at',
-            'parent_name',
-            'card_num',
-            'parent_moblie',
-            'child_name',
-            'child_gender',
-            'child_birthday',
-            'child_age',
-            'cipher',
         ],
     ]) ?>
 

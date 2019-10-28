@@ -17,7 +17,8 @@ class UserInfoSearch extends UserInfo
     public function rules()
     {
         return [
-            [['username', 'real_name', 'mobile', 'phone', 'birthday', 'baby_gender', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id', 'is_vip'], 'integer'],
+            [['open_id', 'username', 'real_name', 'phone', 'status', 'parent_name', 'parent_mobile', 'child_name', 'child_gender', 'child_birthday', 'child_age', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -58,18 +59,23 @@ class UserInfoSearch extends UserInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'is_vip' => $this->is_vip,
+            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
+        $query->andFilterWhere(['like', 'open_id', $this->open_id])
+            ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'real_name', $this->real_name])
-            ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'birthday', $this->birthday])
-            ->andFilterWhere(['like', 'baby_gender', $this->baby_gender])
-            ->andFilterWhere(['like', 'created_at', $this->created_at])
-            ->andFilterWhere(['like', 'deleted_at', $this->deleted_at]);
+            ->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'parent_name', $this->parent_name])
+            ->andFilterWhere(['like', 'parent_mobile', $this->parent_mobile])
+            ->andFilterWhere(['like', 'child_name', $this->child_name])
+            ->andFilterWhere(['like', 'child_gender', $this->child_gender])
+            ->andFilterWhere(['like', 'child_birthday', $this->child_birthday])
+            ->andFilterWhere(['like', 'child_age', $this->child_age]);
 
         return $dataProvider;
     }

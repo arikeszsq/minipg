@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserCouponSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '';
+$this->title = '用户优惠券';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-coupon-index">
@@ -16,19 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-//
-//            'id',
-//            'user_id',
             'username',
-//            'coupon_id',
             'coupon_name',
-            //'status',
-            //'total_num',
-            //'stay_num',
+            'total_num',
+            'stay_num',
             'created_at',
-            //'updated_at',
-            //'deleted_at',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -9,7 +9,7 @@
                     ['label' => '商家管理', 'icon' => 'circle-o', 'url' => ['/admin/business/index']],
                     ['label' => '优惠券', 'icon' => 'circle-o', 'url' => ['/admin/coupon/index']],
 
-                    ['label' => '会员管理', 'icon' => 'dashboard', 'url' => ['/admin/user-card/index']],
+                    ['label' => '用户会员卡', 'icon' => 'dashboard', 'url' => ['/admin/user-card/index']],
                     ['label' => '用户管理', 'icon' => 'dashboard', 'url' => ['/admin/user-info/index']],
 
                     ['label' => '消费记录', 'icon' => 'circle-o', 'url' => ['/admin/consum-log/index']],
