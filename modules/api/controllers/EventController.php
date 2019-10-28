@@ -48,6 +48,31 @@ class EventController extends BaseController
     }
 
     /**
+     * 活动详情
+     * @return array
+     */
+    public function actionDetail()
+    {
+        $inputs = Yii::$app->request->get();
+        $id = $inputs['id'] ?? 1;
+        if (empty($id)) {
+            return [
+                'code' => 101,
+                'msg' => '活动id必填'
+            ];
+        }
+        $query = Event::find();
+        $activity = $query
+            ->where(['id' => $id])
+            ->one();
+        return [
+            'code' => 200,
+            'msg' => '获取成功',
+            'data' => $activity
+        ];
+    }
+
+    /**
      * 活动报名
      * @return array
      */
@@ -65,11 +90,11 @@ class EventController extends BaseController
         $event = Event::findOne($event_id);
         if ($event->need_vip == Event::Vip_需要) {
             $user_cards = UserCard::find()
-                ->where(['user_id'=>$user_id])
-                ->andWhere(['valid_time_end','>',$event->created_at])
+                ->where(['user_id' => $user_id])
+                ->andWhere(['valid_time_end', '>', $event->created_at])
                 ->asArray()
                 ->all();
-            if(count($user_cards)<=0){
+            if (count($user_cards) <= 0) {
                 return [
                     'code' => 102,
                     'msg' => '没有报名资格，请先开通会员卡'
