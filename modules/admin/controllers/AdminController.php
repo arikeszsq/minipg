@@ -66,7 +66,15 @@ class AdminController extends BaseController
     {
         $model = new Admin();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            $model->password = $model->_password(Yii::$app->request->post()['Admin']['password']);
+            $admin = Admin::find()->where(['user_name' => Yii::$app->request->post()['Admin']['user_name']])->one();
+            if ($admin) {
+                return '用户已经存在';
+            }
+            $model->save();
+//            var_dump(Yii::$app->request->post()['Admin']);exit;
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +94,10 @@ class AdminController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+            $model->password = $model->_password(Yii::$app->request->post()['Admin']['password']);
+//            var_dump(Yii::$app->request->post()['Admin']);exit;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

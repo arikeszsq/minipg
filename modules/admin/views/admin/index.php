@@ -22,9 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'user_name',
-            'token',
-            'photo',
-            'password',
+            [
+                "format" => 'raw',
+                'value' => function ($model) {
+                    return Html::img($model->photo, ["width" => "30", "height" => "30"]);
+                },
+            ],
             'created_at',
             'updated_at',
             ['class' => 'yii\grid\ActionColumn'],

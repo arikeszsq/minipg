@@ -14,13 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'token')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'photo')->widget('manks\FileInput', []); ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
