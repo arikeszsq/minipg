@@ -17,7 +17,7 @@ class EventController extends BaseController
      */
     public function actionLists()
     {
-        $inputs = Yii::$app->request->get();
+        $inputs = Yii::$app->request->post();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
         $is_hot = $inputs['is_hot'] ?? null;
@@ -53,7 +53,7 @@ class EventController extends BaseController
      */
     public function actionDetail()
     {
-        $inputs = Yii::$app->request->get();
+        $inputs = Yii::$app->request->post();
         $id = $inputs['id'] ?? 1;
         if (empty($id)) {
             return [

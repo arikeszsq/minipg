@@ -24,7 +24,7 @@ class UserCardController extends BaseController
         $open_id = $ret['open_id'];
         $user = $this->getUser($open_id);
         $user_id = $user->id;
-        $inputs = Yii::$app->request->get();
+        $inputs = Yii::$app->request->post();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
         $query = UserCard::find();

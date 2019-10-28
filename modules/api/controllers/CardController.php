@@ -11,7 +11,7 @@ class CardController extends BaseController
 {
     public function actionLists()
     {
-        $inputs = Yii::$app->request->get();
+        $inputs = Yii::$app->request->post();
         $page = $inputs['page'] ?? 1;
         $per_page = $inputs['per_page'] ?? 10;
         $query = Card::find();
@@ -39,7 +39,7 @@ class CardController extends BaseController
      */
     public function actionDetail()
     {
-        $inputs = Yii::$app->request->get();
+        $inputs = Yii::$app->request->post();
         $card_id = $inputs['card_id'];
         $card = Card::find()
             ->with('coupons')
