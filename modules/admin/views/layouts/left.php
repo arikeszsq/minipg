@@ -17,6 +17,7 @@
 
                     ['label' => '活动报名表', 'icon' => 'dashboard', 'url' => ['/admin/event-enroll/index']],
                     ['label' => '后台操作日志', 'icon' => 'dashboard', 'url' => ['/admin/backend-log/index']],
+                    ['label' => '管理员', 'icon' => 'dashboard', 'url' => ['/admin/admin/index']],
                 ],
             ]
         ) ?>
