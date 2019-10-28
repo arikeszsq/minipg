@@ -47,10 +47,6 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->redirect('/admin/event/index');
-        }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect('/admin/event/index');
@@ -69,7 +65,8 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        Yii::$app->session['user_name']='';
+        Yii::$app->session['token']='';
 
         return $this->goHome();
     }

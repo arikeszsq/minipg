@@ -2,8 +2,11 @@
 
 namespace app\models;
 
+use app\modules\api\traits\TokenTrait;
+use GuzzleHttp\Cookie\SetCookie;
 use Yii;
 use yii\base\Model;
+use yii\helpers\Url;
 
 /**
  * LoginForm is the model behind the login form.
@@ -13,6 +16,7 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
+    use TokenTrait;
     public $username;
     public $password;
     public $rememberMe = true;
@@ -59,8 +63,17 @@ class LoginForm extends Model
      */
     public function login()
     {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        $params = Yii::$app->request->post()['LoginForm'];
+        $username = $params['username'];
+        $password = $params['password'];
+        $admin = new Admin;
+        $user = $admin->getAdmin($username);
+        if(empty($user)){
+            return Url::to('/admin/login/index');
+        }
+        if ($admin->_password($password) == $user->password) {
+            Yii::$app->session['token'] = $this->encrypt($user->id);
+            return Url::to('/admin/event/index');
         }
         return false;
     }

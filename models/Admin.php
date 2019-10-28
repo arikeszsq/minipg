@@ -9,6 +9,8 @@ use yii\db\ActiveRecord;
 
 class Admin extends AdminGii
 {
+    public static $admin;
+
     public function behaviors()
     {
         return [
@@ -24,5 +26,16 @@ class Admin extends AdminGii
                 'value' => date("Y-m-d H:i:s")
             ]
         ];
+    }
+
+    public function _password($password)
+    {
+        return md5('mini' . $password);
+    }
+
+    public function getAdmin($username)
+    {
+        $admin = Admin::find()->where(['user_name'=>$username])->one();
+        return $admin;
     }
 }

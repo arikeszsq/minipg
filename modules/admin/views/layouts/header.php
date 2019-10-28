@@ -18,8 +18,7 @@ use yii\helpers\Html;
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs"><?php if(Yii::$app->user->identity){echo Yii::$app->user->identity->username; }?></span>
+                        <span class="hidden-xs"><?php if( Yii::$app->session['user_name']){echo  Yii::$app->session['user_name']; }?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-footer">
@@ -27,7 +26,7 @@ use yii\helpers\Html;
                                 <?= Html::a(
                                     '退出',
                                     ['/admin/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                    ['data-method' => 'post', 'class' => 'btn']
                                 ) ?>
                             </div>
                         </li>
