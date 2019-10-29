@@ -5,10 +5,10 @@ namespace app\modules\api\controllers;
 
 
 use app\models\Coupon;
+use app\models\Order;
 use app\models\UserCard;
 use app\models\UserCoupon;
 use app\modules\api\traits\WeChatTrait;
-use App\Util\WXPay;
 use Yii;
 
 class PayController extends BaseController
@@ -36,6 +36,15 @@ class PayController extends BaseController
         $xml = $this->arrayToXml($data);
         $response = $this->postXmlCurl($xml, $url);
         //将微信返回的结果xml转成数组
+        if('支付成功')
+        {
+            $order = new Order();
+            $order->open_id =$openid;
+            $order->money = $total_fee;
+            $order->user_name = '';
+            $order->type = '';
+            $order->save();
+        }
         return $this->xmlstr_to_array($response);
     }
 

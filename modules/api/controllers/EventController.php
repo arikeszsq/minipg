@@ -91,7 +91,7 @@ class EventController extends BaseController
         if ($event->need_vip == Event::Vip_需要) {
             $user_cards = UserCard::find()
                 ->where(['user_id' => $user_id])
-                ->andWhere(['valid_time_end', '>', $event->created_at])
+                ->andWhere([ '>','valid_time_end', $event->created_at])
                 ->asArray()
                 ->all();
             if (count($user_cards) <= 0) {
@@ -103,7 +103,9 @@ class EventController extends BaseController
         }
         $enroll = new EventEnroll();
         $enroll->user_id = $user_id;
+        $enroll->user_name = $user->parent_name;
         $enroll->event_id = $event_id;
+        $enroll->event_name = $event->name;
         if ($enroll->save()) {
             return [
                 'code' => 200,
