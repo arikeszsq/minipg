@@ -21,13 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'user_name',
+
             [
                 "format" => 'raw',
                 'value' => function ($model) {
                     return Html::img($model->photo, ["width" => "30", "height" => "30"]);
                 },
             ],
+            'user_name',
             'created_at',
             'updated_at',
             ['class' => 'yii\grid\ActionColumn'],
