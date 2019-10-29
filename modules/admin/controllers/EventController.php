@@ -36,7 +36,7 @@ class EventController extends BaseController
             'upload' => [
                 'class' => 'kucha\ueditor\UEditorAction',
                 'config' => [
-                    "imageUrlPrefix"  => "https://miniprogram.0512kan.com",//图片访问路径前缀
+                    "imageUrlPrefix" => "https://miniprogram.kan0512.com",//图片访问路径前缀
                     "imagePathFormat" => "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}" //上传保存路径
                 ],
             ]
@@ -81,8 +81,9 @@ class EventController extends BaseController
         $model = new Event();
 
         if ($model->load(Yii::$app->request->post())) {
-            if(!empty(Yii::$app->request->post()['Event']['background_url'])){
-                $model->background_url = json_encode(Yii::$app->request->post()['Event']['background_url']);
+            if (!empty(Yii::$app->request->post()['Event']['background_url'])) {
+                $background_urls = Yii::$app->request->post()['Event']['background_url'];
+                $model->background_url = implode(',', $background_urls);
             };
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -108,6 +109,8 @@ class EventController extends BaseController
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $url_str = $model->background_url;
+        $model->background_url = explode(',',$url_str);
         return $this->render('update', [
             'model' => $model,
         ]);

@@ -53,7 +53,7 @@ class EventController extends BaseController
      */
     public function actionDetail()
     {
-        $inputs = Yii::$app->request->post();
+        $inputs = Yii::$app->request->get();
         $id = $inputs['id'] ?? 1;
         if (empty($id)) {
             return [
