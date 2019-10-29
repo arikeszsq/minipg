@@ -22,7 +22,16 @@ class UserInfoController extends BaseController
         }
         $open_id = $ret['open_id'];
         $user = $this->getUser($open_id);
-        $user->load(Yii::$app->request->post());
+        $posts = Yii::$app->request->post();
+        $user->username = $posts['username'] ?? '';
+        $user->real_name = $posts['real_name'] ?? '';
+        $user->phone = $posts['phone'] ?? '';
+        $user->parent_name = $posts['parent_name'] ?? '';
+        $user->parent_mobile = $posts['parent_mobile'] ?? '';
+        $user->child_name = $posts['child_name'] ?? '';
+        $user->child_gender = $posts['child_gender'] ?? '';
+        $user->child_birthday = $posts['child_birthday'] ?? '';
+        $user->child_age = $posts['child_age'] ?? '';
         if ($user->save()) {
             return [
                 'code' => 200,
