@@ -9,6 +9,7 @@ use yii\db\ActiveRecord;
 
 class Order extends OrderGii
 {
+    const Used_已使用 = 1;
     public function behaviors()
     {
         return [
