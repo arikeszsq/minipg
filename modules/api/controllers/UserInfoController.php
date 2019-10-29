@@ -14,7 +14,7 @@ class UserInfoController extends BaseController
      * 修改用户资料
      * @return array
      */
-    public function actionUpdate()
+    public function actionAdd()
     {
         $ret = $this->requireLogin();
         if ($ret['code'] != 200) {
