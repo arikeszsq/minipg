@@ -104,13 +104,17 @@ class EventController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if (!empty(Yii::$app->request->post()['Event']['background_url'])) {
+                $background_urls = Yii::$app->request->post()['Event']['background_url'];
+                $model->background_url = implode(',', $background_urls);
+            };
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         $url_str = $model->background_url;
-        $model->background_url = explode(',',$url_str);
+        $model->background_url = explode(',', $url_str);
         return $this->render('update', [
             'model' => $model,
         ]);

@@ -50,6 +50,8 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
+    <?= $form->field($model, 'address_name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <?php echo $form->field($model, 'detail')->widget('kucha\ueditor\UEditor', [

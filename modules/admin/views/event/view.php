@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'background_url:url',
             'start_time',
             'end_time',
+            'address_name',
             'address',
             'detail',
             'price',
