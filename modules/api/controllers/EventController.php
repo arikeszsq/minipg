@@ -94,6 +94,12 @@ class EventController extends BaseController
             ];
         }
         $event = Event::findOne($event_id);
+        if($event->status==Event::Status_已结束){
+            return [
+                'code' => 104,
+                'msg' => '活动报名已结束！！'
+            ];
+        }
         if ($event->need_vip == Event::Vip_需要) {
             $user_cards = UserCard::find()
                 ->where(['user_id' => $user_id])
