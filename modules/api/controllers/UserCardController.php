@@ -5,8 +5,10 @@ namespace app\modules\api\controllers;
 
 
 use app\models\Card;
+use app\models\Coupon;
 use app\models\Order;
 use app\models\UserCard;
+use app\models\UserCoupon;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -57,21 +59,10 @@ class UserCardController extends BaseController
         }
         $transaction = Yii::$app->db->beginTransaction();
         try {
-            $user_card = new UserCard();
-            $user_card->user_id = $user_id;
-            $user_card->user_name = $user->user_name;
-            $user_card->open_id = $user->open_id;
-            $user_card->card_id = $card_id;
-            $user_card->card_name = $card->name;
-            $user_card->card_num = rand(100000, 999999) . 'vip_card';
-//            $user_card->status = ;
-            $user_card->valid_time_start = $card->valid_time_start;
-            $user_card->valid_time_end = $card->valid_time_end;
-            $user_card->valid_time = $card->valid_time_start . '-' . $card->valid_time_end;
-            $user_card->cipher = rand(100000, 999999);
-            $user_card->save();
+            $user_card = $this->bind_card($user_id, $user, $card_id, $card);
             $order->is_used = Order::Used_已使用;
             $order->save();
+            $this->bind_coupon($user, $card_id);
             $transaction->commit();
             return [
                 'code' => 200,
@@ -81,6 +72,54 @@ class UserCardController extends BaseController
         } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;
+        }
+    }
+
+    /**
+     * 发放会员卡
+     * @param $user_id
+     * @param $user
+     * @param $card_id
+     * @param $card
+     * @return UserCard
+     */
+    function bind_card($user_id, $user, $card_id, $card)
+    {
+        $user_card = new UserCard();
+        $user_card->user_id = $user_id;
+        $user_card->user_name = $user->user_name;
+        $user_card->open_id = $user->open_id;
+        $user_card->card_id = $card_id;
+        $user_card->card_name = $card->name;
+        $user_card->card_num = rand(100000, 999999) . 'vip_card';
+//            $user_card->status = ;
+        $user_card->valid_time_start = $card->valid_time_start;
+        $user_card->valid_time_end = $card->valid_time_end;
+        $user_card->valid_time = $card->valid_time_start . '-' . $card->valid_time_end;
+        $user_card->cipher = rand(100000, 999999);
+        $user_card->save();
+        return $user_card;
+    }
+
+
+    /**
+     * 开通会员卡后，发放优惠券
+     * @param $user
+     * @param $card_id
+     */
+    function bind_coupon($user, $card_id)
+    {
+        $coupons = Coupon::find()->where(['card_id' => $card_id])->all();
+        foreach ($coupons as $coupon) {
+            $user_coupon = new UserCoupon();
+            $user_coupon->user_id = $user->id;
+            $user_coupon->username = $user->username;
+            $user_coupon->coupon_id = $coupon->id;
+            $user_coupon->coupon_name = $coupon->name;
+            $user_coupon->status = Coupon::Status_有效;
+            $user_coupon->total_num = $coupon->total_num;
+            $user_coupon->stay_num = 0;
+            $user_coupon->save();
         }
     }
 
