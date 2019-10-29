@@ -26,7 +26,10 @@ class LoginController extends Controller
         $arr = file_get_contents($url);
         $arr = json_decode($arr, true);
         $openid = $arr['openid'];
-        $user_info = new UserInfo();
+        $user_info = UserInfo::find()->where(['open_id'=>$openid])->one();
+        if(empty($user_info)){
+            $user_info = new UserInfo();
+        }
         $user_info->open_id = $openid;
         if ($user_info->save()) {
             $token = $this->encrypt($openid);
