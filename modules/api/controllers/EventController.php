@@ -87,6 +87,12 @@ class EventController extends BaseController
         $user_id = $user->id;
         $inputs = Yii::$app->request->post();
         $event_id = $inputs['event_id'];
+        if(empty($event_id)){
+            return [
+                'code' => 103,
+                'msg' => 'event_id必填！！！'
+            ];
+        }
         $event = Event::findOne($event_id);
         if ($event->need_vip == Event::Vip_需要) {
             $user_cards = UserCard::find()
