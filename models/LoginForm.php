@@ -69,6 +69,7 @@ class LoginForm extends Model
         $admin = new Admin;
         $user = $admin->getAdmin($username);
         if(empty($user)){
+            Yii::$app->session->setFlash('success', '阿斯蒂芬');
             return Url::to('/admin/login/index');
         }
         if ($admin->_password($password) == $user->password) {

@@ -2,8 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Admin;
+use app\modules\api\traits\TokenTrait;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -11,6 +14,7 @@ use app\models\LoginForm;
 
 class SiteController extends Controller
 {
+    use TokenTrait;
     /**
      * {@inheritdoc}
      */
@@ -48,7 +52,24 @@ class SiteController extends Controller
     public function actionLogin()
     {
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $params = Yii::$app->request->post()['LoginForm'];
+            $username = $params['username'];
+            $password = $params['password'];
+            $admin = new Admin;
+            $user = $admin->getAdmin($username);
+            if(empty($user)){
+                Yii::$app->session->setFlash('success', '账号不存在');
+                return $this->refresh();
+            }
+            if ($admin->_password($password) != $user->password) {
+                Yii::$app->session->setFlash('success', '密码不正确，请重新输入！');
+                return $this->refresh();
+            }
+            if ($admin->_password($password) == $user->password) {
+                Yii::$app->session['token'] = $this->encrypt($user->id);
+                return $this->redirect('/admin/event/index');
+            }
             return $this->redirect('/admin/event/index');
         }
 
