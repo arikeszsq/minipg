@@ -119,7 +119,7 @@ class UserCardController extends BaseController
                 $user_coupon->coupon_name = $coupon->name;
                 $user_coupon->status = Coupon::Status_有效;
                 $user_coupon->total_num = $coupon->total_num;
-                $user_coupon->stay_num = 0;
+                $user_coupon->stay_num = $coupon->total_num;
                 $user_coupon->save();
             }
         }
