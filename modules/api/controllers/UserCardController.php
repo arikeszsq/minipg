@@ -19,7 +19,7 @@ class UserCardController extends BaseController
      * @return array
      * @throws \Exception
      */
-    public function open()
+    public function actionOpen()
     {
         $ret = $this->requireLogin();
         if ($ret['code'] != 200) {
