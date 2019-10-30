@@ -87,7 +87,7 @@ class UserCardController extends BaseController
     {
         $user_card = new UserCard();
         $user_card->user_id = $user_id;
-        $user_card->user_name = $user->user_name;
+        $user_card->user_name = $user->username;
         $user_card->open_id = $user->open_id;
         $user_card->card_id = $card_id;
         $user_card->card_name = $card->name;
