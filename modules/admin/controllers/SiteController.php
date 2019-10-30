@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Admin;
+use app\models\BackendLog;
 use app\modules\api\traits\TokenTrait;
 use Yii;
 use yii\filters\AccessControl;
@@ -15,6 +16,7 @@ use app\models\LoginForm;
 class SiteController extends Controller
 {
     use TokenTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -58,7 +60,7 @@ class SiteController extends Controller
             $password = $params['password'];
             $admin = new Admin;
             $user = $admin->getAdmin($username);
-            if(empty($user)){
+            if (empty($user)) {
                 Yii::$app->session->setFlash('success', '账号不存在');
                 return $this->refresh();
             }
@@ -68,11 +70,11 @@ class SiteController extends Controller
             }
             if ($admin->_password($password) == $user->password) {
                 Yii::$app->session['token'] = $this->encrypt($user->id);
+                $log = new BackendLog();
+                $log->add_log($username,'登陆',$user->id);
                 return $this->redirect('/admin/event/index');
             }
-            return $this->redirect('/admin/event/index');
         }
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
@@ -86,8 +88,8 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->session['user_name']='';
-        Yii::$app->session['token']='';
+        Yii::$app->session['user_name'] = '';
+        Yii::$app->session['token'] = '';
 
         return $this->goHome();
     }
