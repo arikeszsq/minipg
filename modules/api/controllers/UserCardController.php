@@ -91,7 +91,7 @@ class UserCardController extends BaseController
         $user_card->open_id = $user->open_id;
         $user_card->card_id = $card_id;
         $user_card->card_name = $card->name;
-        $user_card->card_num = rand(100000, 999999) . 'vip_card';
+        $user_card->card_num = rand(10000000, 99999999) . 'vip_card';
 //            $user_card->status = ;
         $user_card->valid_time_start = $card->valid_time_start;
         $user_card->valid_time_end = $card->valid_time_end;
@@ -110,16 +110,18 @@ class UserCardController extends BaseController
     function bind_coupon($user, $card_id)
     {
         $coupons = Coupon::find()->where(['card_id' => $card_id])->all();
-        foreach ($coupons as $coupon) {
-            $user_coupon = new UserCoupon();
-            $user_coupon->user_id = $user->id;
-            $user_coupon->username = $user->username;
-            $user_coupon->coupon_id = $coupon->id;
-            $user_coupon->coupon_name = $coupon->name;
-            $user_coupon->status = Coupon::Status_有效;
-            $user_coupon->total_num = $coupon->total_num;
-            $user_coupon->stay_num = 0;
-            $user_coupon->save();
+        if ($coupons) {
+            foreach ($coupons as $coupon) {
+                $user_coupon = new UserCoupon();
+                $user_coupon->user_id = $user->id;
+                $user_coupon->username = $user->username;
+                $user_coupon->coupon_id = $coupon->id;
+                $user_coupon->coupon_name = $coupon->name;
+                $user_coupon->status = Coupon::Status_有效;
+                $user_coupon->total_num = $coupon->total_num;
+                $user_coupon->stay_num = 0;
+                $user_coupon->save();
+            }
         }
     }
 
