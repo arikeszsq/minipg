@@ -71,7 +71,8 @@ class AdminController extends BaseController
             $model->password = $model->_password(Yii::$app->request->post()['Admin']['password']);
             $admin = Admin::find()->where(['user_name' => Yii::$app->request->post()['Admin']['user_name']])->one();
             if ($admin) {
-                return '用户已经存在';
+                Yii::$app->session->setFlash('success','账号名称重复');
+                return $this->refresh();
             }
             $model->save();
 //            var_dump(Yii::$app->request->post()['Admin']);exit;
