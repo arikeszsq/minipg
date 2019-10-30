@@ -57,15 +57,22 @@ class UserCardController extends BaseController
                 'msg' => '会员卡不存在！'
             ];
         }
-        $user_card = $this->bind_card($user_id, $user, $card_id, $card);
-        $order->is_used = Order::Used_已使用;
-        $order->save();
-        $this->bind_coupon($user, $card_id);
-        return [
-            'code' => 200,
-            'msg' => '会员卡开通成功',
-            'data' => $user_card
-        ];
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $user_card = $this->bind_card($user_id, $user, $card_id, $card);
+            $order->is_used = Order::Used_已使用;
+            $order->save();
+            $this->bind_coupon($user, $card_id);
+            $transaction->commit();
+            return [
+                'code' => 200,
+                'msg' => '会员卡开通成功',
+                'data' => $user_card
+            ];
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
     }
 
     /**

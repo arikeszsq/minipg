@@ -40,10 +40,7 @@ class UserCardGii extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'card_id'], 'required'],
-            [['user_id', 'open_id', 'card_id', 'status'], 'integer'],
-            [['valid_time_start', 'valid_time_end', 'valid_time', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['user_name', 'card_num', 'cipher'], 'string', 'max' => 255],
-            [['card_name'], 'string', 'max' => 30],
+            [['user_id', 'card_id','card_name','user_name', 'card_num', 'cipher','valid_time_start', 'valid_time_end', 'valid_time', 'created_at', 'updated_at', 'deleted_at', 'status'], 'safe'],
         ];
     }
 
