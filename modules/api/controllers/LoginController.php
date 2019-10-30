@@ -33,7 +33,7 @@ class LoginController extends Controller
         $user_info->open_id = $openid;
         if ($user_info->save()) {
             $token = $this->encrypt($openid);
-            return json_encode(['code' => 200, 'message' => 'OK', 'token' => $token, 'data' => $arr]);
+            return json_encode(['code' => 200, 'message' => 'OK', 'token' => $token]);
         }
         return json_encode(['code' => 100, 'message' => '登陆失败']);
     }
