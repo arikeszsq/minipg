@@ -60,4 +60,9 @@ class UserCoupon extends \yii\db\ActiveRecord
             'deleted_at' => 'Deleted At',
         ];
     }
+
+    public function getCoupon()
+    {
+        return $this->hasOne(Coupon::className(), ['id' => 'coupon_id']);
+    }
 }

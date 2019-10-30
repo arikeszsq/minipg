@@ -28,6 +28,7 @@ class UserCouponController extends BaseController
         $user_coupons = $query
             ->where(['user_id' => $user_id])
             ->offset($offset)
+            ->with(['coupon'])
             ->limit($per_page)
             ->all();
         return [
