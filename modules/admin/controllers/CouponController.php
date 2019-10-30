@@ -2,6 +2,8 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\UserCard;
+use app\models\UserCoupon;
 use app\modules\admin\service\CardService;
 use app\modules\admin\service\CommonService;
 use Yii;
@@ -83,6 +85,19 @@ class CouponController extends BaseController
             $model->business_id = $business_id;
 
             $model->save();
+            $users = UserCard::find()->where(['card_id' => $card_id])->all();
+            if($users){
+                foreach ($users as $user) {
+                    $user_coupon = new UserCoupon();
+                    $user_coupon->user_id = $user->user_id;
+                    $user_coupon->username = $user->user_name;
+                    $user_coupon->coupon_id = $model->id;
+                    $user_coupon->coupon_name = $model->name;
+                    $user_coupon->status = Coupon::Status_有效;
+                    $user_coupon->total_num = $model->total_num;
+                    $user_coupon->stay_num = $model->total_num;
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
