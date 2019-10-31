@@ -140,6 +140,7 @@ class UserCardController extends BaseController
         $offset = ($page - 1) * $per_page;
         $user_cards = $query
             ->where(['user_id' => $user_id])
+            ->with('card')
             ->offset($offset)
             ->limit($per_page)
             ->asArray()
