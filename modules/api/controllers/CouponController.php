@@ -21,6 +21,7 @@ class CouponController extends BaseController
         $coupon_id = $inputs['coupon_id'];
         $coupon = Coupon::find()
             ->where(['id' => $coupon_id])
+            ->with('business')
             ->asArray()
             ->one();
         return [

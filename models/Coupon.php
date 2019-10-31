@@ -78,4 +78,9 @@ class Coupon extends CouponGii
         ];
     }
 
+    public function getBusiness()
+    {
+        return $this->hasOne(Business::className(), ['id' => 'business_id']);
+    }
+
 }
