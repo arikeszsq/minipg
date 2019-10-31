@@ -43,13 +43,14 @@ class CardController extends BaseController
         $card_id = $inputs['card_id'];
         $card = Card::find()
             ->with('coupons')
+            ->with('events')
             ->where(['id' => $card_id])
+            ->asArray()
             ->one();
         return [
             'code' => 200,
             'msg' => '成功获取',
             'card' => $card,
-            'coupons' => $card->coupons
         ];
     }
 

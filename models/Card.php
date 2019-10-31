@@ -63,4 +63,13 @@ class Card extends CardGii
     {
         return $this->hasMany(Coupon::className(), ['card_id' => 'id']);
     }
+
+    /**
+     * 关联活动表
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEvents()
+    {
+        return $this->hasMany(Event::className(), ['card_name' => 'name']);
+    }
 }
