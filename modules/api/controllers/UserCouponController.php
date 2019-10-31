@@ -30,6 +30,7 @@ class UserCouponController extends BaseController
             ->offset($offset)
             ->with(['coupon'])
             ->limit($per_page)
+            ->asArray()
             ->all();
         return [
             'code' => 200,
