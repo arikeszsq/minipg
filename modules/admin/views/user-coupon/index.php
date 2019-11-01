@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'total_num',
             'stay_num',
             'created_at',
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

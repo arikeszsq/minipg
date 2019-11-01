@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
             'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
