@@ -84,17 +84,23 @@ class EventController extends BaseController
         }
         $open_id = $ret['open_id'];
         $user = $this->getUser($open_id);
+        if (empty($user->child_name)) {
+            return [
+                'code' => 105,
+                'msg' => '请先完善用户信息'
+            ];
+        }
         $user_id = $user->id;
         $inputs = Yii::$app->request->post();
         $event_id = $inputs['event_id'];
-        if(empty($event_id)){
+        if (empty($event_id)) {
             return [
                 'code' => 103,
                 'msg' => 'event_id必填！！！'
             ];
         }
         $event = Event::findOne($event_id);
-        if($event->status==Event::Status_已结束){
+        if ($event->status == Event::Status_已结束) {
             return [
                 'code' => 104,
                 'msg' => '活动报名已结束！！'
@@ -103,7 +109,7 @@ class EventController extends BaseController
         if ($event->need_vip == Event::Vip_需要) {
             $user_cards = UserCard::find()
                 ->where(['user_id' => $user_id])
-                ->andWhere([ '>','valid_time_end', $event->created_at])
+                ->andWhere(['>', 'valid_time_end', $event->created_at])
                 ->asArray()
                 ->all();
             if (count($user_cards) <= 0) {
@@ -115,7 +121,7 @@ class EventController extends BaseController
         }
         $enroll = new EventEnroll();
         $enroll->user_id = $user_id;
-        $enroll->user_name = $user->parent_name;
+        $enroll->user_name = $user->child_name;
         $enroll->event_id = $event_id;
         $enroll->event_name = $event->name;
         if ($enroll->save()) {
