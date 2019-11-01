@@ -54,12 +54,13 @@ class PayController extends BaseController
      */
     public function actionGetCard()
     {
-        $user = $this->requireLoginUser();
-        if ($user['code'] != 200) {
-            return $user;
-        } else {
-            $user_id = $user['user_id'];
+        $ret = $this->requireLogin();
+        if ($ret['code'] != 200) {
+            return $ret;
         }
+        $open_id = $ret['open_id'];
+        $user = $this->getUser($open_id);
+        $user_id = $user->id;
         $user = $this->getUser($user_id);
         $inputs = Yii::$app->request->post();
         $card_id = $inputs['card_id'];
@@ -91,12 +92,13 @@ class PayController extends BaseController
      */
     public function actionUseCheckCode()
     {
-        $user = $this->requireLoginUser();
-        if ($user['code'] != 200) {
-            return $user;
-        } else {
-            $user_id = $user['user_id'];
+        $ret = $this->requireLogin();
+        if ($ret['code'] != 200) {
+            return $ret;
         }
+        $open_id = $ret['open_id'];
+        $user = $this->getUser($open_id);
+        $user_id = $user->id;
         $inputs = Yii::$app->request->post();
         $check_code = $inputs['check_code'];
         $coupon_id = $inputs['coupon_id'];
