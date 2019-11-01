@@ -4,6 +4,8 @@
 namespace app\modules\api\controllers;
 
 
+use app\models\ConsumLog;
+use app\models\ConsumLogGii;
 use app\models\Coupon;
 use app\models\Order;
 use app\models\UserCard;
@@ -36,10 +38,9 @@ class PayController extends BaseController
         $xml = $this->arrayToXml($data);
         $response = $this->postXmlCurl($xml, $url);
         //将微信返回的结果xml转成数组
-        if('支付成功')
-        {
+        if ('支付成功') {
             $order = new Order();
-            $order->open_id =$openid;
+            $order->open_id = $openid;
             $order->money = $total_fee;
             $order->user_name = '';
             $order->type = '';
@@ -101,7 +102,19 @@ class PayController extends BaseController
         $user_id = $user->id;
         $inputs = Yii::$app->request->post();
         $check_code = $inputs['check_code'];
+        if (empty($check_code)) {
+            return [
+                'code' => 103,
+                'msg' => '核销码必填'
+            ];
+        }
         $coupon_id = $inputs['coupon_id'];
+        if (empty($coupon_id)) {
+            return [
+                'code' => 104,
+                'msg' => '优惠码id必填'
+            ];
+        }
         $coupon = Coupon::find()->where(['id' => $coupon_id])->one();
         if ($coupon->check_code != $check_code) {
             return [
@@ -119,6 +132,9 @@ class PayController extends BaseController
         $user_coupon->stay_num = $user_coupon->stay_num - 1;
 
         if ($user_coupon->save()) {
+            $log = new ConsumLog();
+            $business_name = $coupon->business_name;
+            $log->add_log($user_id, $user->username, $business_name);
             return [
                 'code' => 200,
                 'msg' => '消费成功！！！'

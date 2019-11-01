@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "consum_log".
@@ -14,40 +16,31 @@ use Yii;
  * @property string $updated_at
  * @property string $deleted_at
  */
-class ConsumLog extends \yii\db\ActiveRecord
+class ConsumLog extends ConsumLogGii
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'consum_log';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+    public function behaviors()
     {
         return [
-            [['updated_at','username'], 'safe'],
-            [['business_name', 'created_at', 'deleted_at'], 'string', 'max' => 255],
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    # 创建时更新
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    # 修改时更新
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
+                ],
+                #设置默认值
+                'value' => date("Y-m-d H:i:s")
+            ]
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
+    public function add_log($user_id, $username, $business_name)
     {
-        return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'username' =>'用户名',
-            'business_name' => '商家名称',
-            'created_at' => '消费时间',
-            'updated_at' => 'Updated At',
-            'deleted_at' => 'Deleted At',
-        ];
+        $log = new ConsumLog();
+        $log->user_id = $user_id;
+        $log->username = $username;
+        $log->business_name = $business_name;
+        $log->save();
     }
 }
