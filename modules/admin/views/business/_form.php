@@ -13,19 +13,19 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->input('text',['style'=>'width:250px']) ?>
 
     <?= $form->field($model, 'logo')->widget('manks\FileInput', []);?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'phone')->input('text',['style'=>'width:250px']) ?>
 
-    <?= $form->field($model, 'wx_num')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'wx_num')->input('text',['style'=>'width:250px']) ?>
 
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'address')->input('text',['style'=>'width:250px']) ?>
 
-    <?= $form->field($model, 'detail')->textArea(['rows' => 3]) ?>
+    <?= $form->field($model, 'detail')->textArea(['rows' => 3,'style'=>'width:450px']) ?>
 
-    <?php echo $form->field($model, 'status')->dropDownList(Business::statusDropdownList(), ['prompt'=>'请选择']) ?>
+    <?php echo $form->field($model, 'status')->dropDownList(Business::statusDropdownList(), ['prompt'=>'请选择','style'=>'width:250px']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>

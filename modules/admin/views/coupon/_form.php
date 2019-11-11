@@ -15,28 +15,28 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->input('text', ['style' => 'width:250px']) ?>
 
-    <?php echo $form->field($model, 'card_name')->label('会员卡')->dropDownList(((new CardService())->getCardNameList()), ['prompt'=>'请选择']); ?>
+    <?php echo $form->field($model, 'card_name')->label('会员卡')->dropDownList(((new CardService())->getCardNameList()), ['prompt' => '请选择', 'style' => 'width:250px']); ?>
 
-    <?php echo $form->field($model, 'business_name')->label('商家名称')->dropDownList(((new CommonService())->getBusinessNameList()), ['prompt'=>'请选择']); ?>
+    <?php echo $form->field($model, 'business_name')->label('商家名称')->dropDownList(((new CommonService())->getBusinessNameList()), ['prompt' => '请选择', 'style' => 'width:250px']); ?>
 
     <?php echo $form->field($model, 'pic_url')->label('logo图')->widget('manks\FileInput', []); ?>
 
 
-    <?= $form->field($model, 'description')->textArea(['rows' => 2]) ?>
+    <?= $form->field($model, 'description')->textArea(['rows' => 3, 'style' => 'width:450px']) ?>
 
     <?= $form->field($model, 'tag')->label('标签 (实例：艺术，体育，音乐)')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'suitable_age_start')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'suitable_age_start')->input('text', ['style' => 'width:250px']) ?>
 
-    <?= $form->field($model, 'suitable_age_end')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'suitable_age_end')->input('text', ['style' => 'width:250px']) ?>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'price')->input('text', ['style' => 'width:250px']) ?>
 
-    <?= $form->field($model, 'total_num')->textInput() ?>
+    <?= $form->field($model, 'total_num')->input('text', ['style' => 'width:250px']) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(Coupon::statusDropdownList(), ['prompt'=>'请选择']); ?>
+    <?= $form->field($model, 'status')->dropDownList(Coupon::statusDropdownList(), ['prompt' => '请选择', 'style' => 'width:250px']); ?>
 
     <?= $form->field($model, 'valid_time_start')->label('有效开始时间')->widget(kartik\datetime\DateTimePicker::className(), [
         'readonly' => false,
@@ -54,9 +54,9 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'using_flow')->textArea(['rows' => 2]) ?>
+    <?= $form->field($model, 'using_flow')->textArea(['rows' => 2, 'style' => 'width:450px']) ?>
 
-    <?= $form->field($model, 'using_detail')->textArea(['rows' => 2]) ?>
+    <?= $form->field($model, 'using_detail')->textArea(['rows' => 2, 'style' => 'width:450px']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
