@@ -77,9 +77,7 @@ class CouponController extends BaseController
             $card_id = $card->getCardId($params['Coupon']['card_name']);
             $model->card_id = $card_id;
             $model->suitable_age = $params['Coupon']['suitable_age_start'] . '-' . $params['Coupon']['suitable_age_end'];
-//            $model->check_code = md5('sz' . rand(100000, 999999) . 'gd');
-            $model->check_code = rand(100000, 999999);
-
+            $model->check_code = rand(10000000, 99999999);
             $common = new CommonService;
             $business_id = $common->getBusinessId($params['Coupon']['business_name']);
             $model->business_id = $business_id;
@@ -96,6 +94,7 @@ class CouponController extends BaseController
                     $user_coupon->status = Coupon::Status_有效;
                     $user_coupon->total_num = $model->total_num;
                     $user_coupon->stay_num = $model->total_num;
+                    $user_coupon->save();
                 }
             }
             return $this->redirect(['view', 'id' => $model->id]);
