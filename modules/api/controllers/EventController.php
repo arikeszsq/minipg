@@ -35,6 +35,7 @@ class EventController extends BaseController
             ->andFilterWhere(['need_vip' => $need_vip])
             ->offset($offset)
             ->limit($per_page)
+            ->orderBy('status DESC')
             ->all();
         return [
             'code' => 200,

@@ -13,6 +13,8 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'language' => 'zh-CN',
+    'charset' => 'utf-8',
+    'timeZone' => 'Asia/Shanghai',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
