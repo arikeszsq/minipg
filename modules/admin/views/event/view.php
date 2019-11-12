@@ -50,7 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'end_time',
             'address_name',
             'address',
-            'detail',
+//            'detail',
+            [
+                'attribute' => 'detail',
+                'format' => 'raw'
+            ],
             'price',
             'price_detail',
             [
