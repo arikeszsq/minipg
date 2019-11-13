@@ -7,6 +7,11 @@ namespace app\models;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
+/**
+ * User ActiveRecord model.
+ *
+ * @property UserInfo $userinfo
+ */
 class EventEnroll extends EventEnrollGii
 {
     public function behaviors()
@@ -24,6 +29,15 @@ class EventEnroll extends EventEnrollGii
                 'value' => date("Y-m-d H:i:s")
             ]
         ];
+    }
+
+    /**
+     * 关联用户表
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserinfo()
+    {
+        return $this->hasOne(UserInfo::className(), ['id' => 'user_id']);
     }
 
 }
