@@ -19,6 +19,7 @@
                     ['label' => '活动报名表', 'icon' => 'dashboard', 'url' => ['/admin/event-enroll/index']],
                     ['label' => '订单表', 'icon' => 'dashboard', 'url' => ['/admin/order/index']],
                     ['label' => '后台操作日志', 'icon' => 'dashboard', 'url' => ['/admin/backend-log/index']],
+                    ['label' => '首页轮播图管理', 'icon' => 'dashboard', 'url' => ['/admin/banner/index']],
 
                 ],
             ]
