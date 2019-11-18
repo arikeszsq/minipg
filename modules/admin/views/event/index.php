@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'format' => 'raw',
                     'value' => function (Event $event) {
-                        $btn = '<button class="btn btn-xs btn-success excel_out" data-id="' . $event->id . '">报名表导出</button>';
+                        $btn = '<a class="btn btn-xs btn-success excel_out" href="/admin/excel/out?id=' . $event->id . '">报名表导出</a>';
                         return $btn;
                     },
                 ],
@@ -54,15 +54,3 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]); ?>
     </div>
-    <script>
-        <?php $this->beginBlock('my_js')?>
-        $('.excel_out').on('click', function () {
-            if (confirm('确定导出活动报名表？')) {
-                var id = $(this).data('id');
-                console.log(id);
-                $.get("/admin/excel/out",{id:id},function(result){});
-            }
-        });
-        <?php $this->endBlock()?>
-    </script>
-<?php $this->registerJs($this->blocks['my_js'], \yii\web\View::POS_LOAD); ?>
