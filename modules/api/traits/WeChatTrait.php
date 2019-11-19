@@ -4,6 +4,8 @@
 namespace app\modules\api\traits;
 
 
+use Yii;
+
 trait WeChatTrait
 {
     /**
@@ -37,7 +39,7 @@ trait WeChatTrait
         $String = $this->formatBizQueryParaMap($Parameters, false);
 //        echo "【string】 =".$String."</br>";
         //签名步骤二：在string后加入KEY
-        $String = $String . "&key=" . $this->config['api_key'];
+        $String = $String . "&key=" . Yii::$app->params['API_KEY'];
 //        echo "<textarea style='width: 50%; height: 150px;'>$String</textarea> <br />";
         //签名步骤三：MD5加密
         $result_ = strtoupper(md5($String));
@@ -181,10 +183,10 @@ trait WeChatTrait
             //设置证书
             //使用证书：cert 与 key 分别属于两个.pem文件
             curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'PEM');
-            curl_setopt($ch, CURLOPT_SSLCERT, '/www/wwwroot/fujin/simplewind/Core/Library/Vendor/WeiXin/cert/apiclient_cert.pem');
+            curl_setopt($ch, CURLOPT_SSLCERT, '/WeiXin/cert/apiclient_cert.pem');
             curl_setopt($ch, CURLOPT_SSLKEYTYPE, 'PEM');
-            curl_setopt($ch, CURLOPT_SSLKEY, '/www/wwwroot/fujin/simplewind/Core/Library/Vendor/WeiXin/cert/apiclient_key.pem');
-            curl_setopt($ch, CURLOPT_CAINFO, '/www/wwwroot/fujin/simplewind/Core/Library/Vendor/WeiXin/cert/cacert.pem');
+            curl_setopt($ch, CURLOPT_SSLKEY, '/WeiXin/cert/apiclient_key.pem');
+//            curl_setopt($ch, CURLOPT_CAINFO, '/WeiXin/cert/cacert.pem');
         } else {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);

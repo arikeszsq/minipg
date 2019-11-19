@@ -30,6 +30,8 @@ return [
     'imageUploadSuccessPath' => '/uploads/', // 图片上传成功后，路径前缀
 
     'MINI_APPID' => '123',
-    'MINI_APP_SECRET'=>'123123',
-    'MCH_ID'=>'123123',
+    'MINI_APP_SECRET' => '123123',
+    'MCH_ID' => '123123',
+    'API_KEY' => '123',
+    'vip_notifyurl' => '/Notify/vip_order_notify_weixin',
 ];

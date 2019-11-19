@@ -1,13 +1,9 @@
 <?php
 
-
 namespace app\modules\api\controllers;
 
-
 use app\models\ConsumLog;
-use app\models\ConsumLogGii;
 use app\models\Coupon;
-use app\models\Order;
 use app\models\UserCard;
 use app\models\UserCoupon;
 use app\modules\api\traits\WeChatTrait;
@@ -17,36 +13,64 @@ class PayController extends BaseController
 {
     use WeChatTrait;
 
-    public function index($openid, $body, $order_no, $total_fee, $notify_url)
+    /**
+     * 微信支付第一次签名，获取prepay_id
+     * @return array
+     */
+    public function actionIndex()
     {
+        if (!Yii::$app->request->isPost) {
+            return [
+                'code' => 101,
+                'msg' => '请求方式错误'
+            ];
+        }
+        $ret = $this->requireLogin();
+        if ($ret['code'] != 200) {
+            return $ret;
+        }
+        $openid = $ret['open_id'];
+        $params = Yii::$app->request->post();
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         $app_id = Yii::$app->params['MINI_APPID'];
         $mch_id = Yii::$app->params['MCH_ID'];
         $nonce_str = $this->getRandChar(32);
         $data["appid"] = $app_id;
         $data["mch_id"] = $mch_id;
+        $data["body"] = $params['body'];
         $data["nonce_str"] = $nonce_str;
-        $data["notify_url"] = $notify_url;
-        $data["body"] = $body;
-        $data["out_trade_no"] = $order_no;
+        $data["out_trade_no"] = $params['out_trade_no'];
+        $data["total_fee"] = intval($params['total_fee'] * 100);
         $data["spbill_create_ip"] = $this->get_client_ip();
-        $data["total_fee"] = $total_fee;
+        $data["notify_url"] = 'https://miniprogram.kan0512.com/api/notify/index';
         $data["trade_type"] = "JSAPI";
         $data["openid"] = $openid;
         $sign = $this->getSign($data);
         $data["sign"] = $sign;
         $xml = $this->arrayToXml($data);
         $response = $this->postXmlCurl($xml, $url);
-        //将微信返回的结果xml转成数组
-        if ('支付成功') {
-            $order = new Order();
-            $order->open_id = $openid;
-            $order->money = $total_fee;
-            $order->user_name = '';
-            $order->type = '';
-            $order->save();
-        }
-        return $this->xmlstr_to_array($response);
+        $result = $this->xmlstr_to_array($response);
+        $data = $this->getPayInfo($app_id, $result['prepay_id']);
+        return $data;
+    }
+
+    /**
+     * 微信再次签名，把五个参数返回给小程序
+     * @param $app_id
+     * @param $prepay_id
+     * @return mixed
+     */
+    public function getPayInfo($app_id, $prepay_id)
+    {
+        $signData['appId'] = $app_id;
+        $signData['timeStamp'] = (string)time();
+        $signData['nonceStr'] = md5(time() . mt_rand(0, 1000));
+        $signData['package'] = 'prepay_id=' . $prepay_id;
+        $signData['signType'] = 'MD5';
+        $sign = $this->getSign($signData);
+        $signData['paySign'] = $sign;
+        unset($signData['appId']);
+        return $signData;
     }
 
     /**
