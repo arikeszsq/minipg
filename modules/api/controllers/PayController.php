@@ -89,10 +89,10 @@ class PayController extends BaseController
     public function getPayInfo($app_id, $prepay_id)
     {
         $signData['appId'] = $app_id;
-        $signData['timeStamp'] = (string)time();
-        $signData['nonceStr'] = md5(time() . mt_rand(0, 1000));
+        $signData['nonceStr'] = $this->getRandChar(32);
         $signData['package'] = 'prepay_id=' . $prepay_id;
         $signData['signType'] = 'MD5';
+        $signData['timeStamp'] = (string)time();
         $sign = $this->getSign($signData);
         $signData['paySign'] = $sign;
         unset($signData['appId']);

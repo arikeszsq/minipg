@@ -31,19 +31,47 @@ trait WeChatTrait
      */
     function getSign($Obj)
     {
-        foreach ($Obj as $k => $v) {
-            $Parameters[strtolower($k)] = $v;
-        }
+//        foreach ($Obj as $k => $v) {
+//            $Parameters[strtolower($k)] = $v;
+//        }
+//        //签名步骤一：按字典序排序参数
+//        ksort($Parameters);
+//        $String = $this->formatBizQueryParaMap($Parameters, false);
+////        echo "【string】 =".$String."</br>";
+//        //签名步骤二：在string后加入KEY
+//        $String = $String . "&key=" . Yii::$app->params['API_KEY'];
+////        echo "<textarea style='width: 50%; height: 150px;'>$String</textarea> <br />";
+//        //签名步骤三：MD5加密
+//        $result_ = strtoupper(md5($String));
+//        return $result_;
+
         //签名步骤一：按字典序排序参数
-        ksort($Parameters);
-        $String = $this->formatBizQueryParaMap($Parameters, false);
-//        echo "【string】 =".$String."</br>";
+        ksort($Obj);
+        $string = $this->ToUrlParams($Obj);
         //签名步骤二：在string后加入KEY
-        $String = $String . "&key=" . Yii::$app->params['API_KEY'];
-//        echo "<textarea style='width: 50%; height: 150px;'>$String</textarea> <br />";
+        $string = $string . "&key=".Yii::$app->params['API_KEY'];
         //签名步骤三：MD5加密
-        $result_ = strtoupper(md5($String));
-        return $result_;
+        $string = md5($string);
+        //签名步骤四：所有字符转为大写
+        $result = strtoupper($string);
+        return $result;
+    }
+
+    /**
+     * 格式化参数格式化成url参数
+     */
+    public function ToUrlParams($Obj)
+    {
+        $buff = "";
+        foreach ($Obj as $k => $v)
+        {
+            if($k != "sign" && $v != "" && !is_array($v)){
+                $buff .= $k . "=" . $v . "&";
+            }
+        }
+
+        $buff = trim($buff, "&");
+        return $buff;
     }
 
     /**
