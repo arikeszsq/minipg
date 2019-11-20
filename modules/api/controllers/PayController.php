@@ -2,8 +2,11 @@
 
 namespace app\modules\api\controllers;
 
+use app\models\Card;
 use app\models\ConsumLog;
 use app\models\Coupon;
+use app\models\Event;
+use app\models\Order;
 use app\models\UserCard;
 use app\models\UserCoupon;
 use app\modules\api\traits\WeChatTrait;
@@ -30,16 +33,28 @@ class PayController extends BaseController
             return $ret;
         }
         $openid = $ret['open_id'];
-        $params = Yii::$app->request->post();
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         $app_id = Yii::$app->params['MINI_APPID'];
         $mch_id = Yii::$app->params['MCH_ID'];
         $nonce_str = $this->getRandChar(32);
         $data["appid"] = $app_id;
         $data["mch_id"] = $mch_id;
-        $data["body"] = $params['body'];
+        $params = Yii::$app->request->post();
+        //1:会员卡支付 2.活动支付
+        $type = $params['type'];
+        $id = $params['id'];
+        if ($type == 1) {
+            $data["body"] = '开通会员卡';
+            $obj = Card::find()->where(['id' => $id])->one();
+            $params['total_fee'] = $obj->price;
+        } else {
+            $data["body"] = '报名付费活动';
+            $obj = Event::find()->where(['id' => $id])->one();
+            $params['total_fee'] = $obj->price;
+        }
+
         $data["nonce_str"] = $nonce_str;
-        $data["out_trade_no"] = $params['out_trade_no'];
+        $data["out_trade_no"] = time();
         $data["total_fee"] = intval($params['total_fee'] * 100);
         $data["spbill_create_ip"] = $this->get_client_ip();
         $data["notify_url"] = 'https://miniprogram.kan0512.com/api/notify/index';
@@ -50,6 +65,17 @@ class PayController extends BaseController
         $xml = $this->arrayToXml($data);
         $response = $this->postXmlCurl($xml, $url);
         $result = $this->xmlstr_to_array($response);
+        if ($result['return_code'] == 'SUCCESS') {
+            $order = new Order();
+            $order->aim_id = $id;
+            $order->num = $data["out_trade_no"];
+            $order->money = $data['total_fee'];
+            $order->type = $type;
+            $order->open_id = $openid;
+            $order->is_used = 1;
+            $order->status = 1;
+            $order->save();
+        }
         $data = $this->getPayInfo($app_id, $result['prepay_id']);
         return $data;
     }

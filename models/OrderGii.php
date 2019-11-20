@@ -8,12 +8,14 @@ use Yii;
  * This is the model class for table "order".
  *
  * @property int $id
- * @property int $num 订单号
+ * @property string $num 订单号
  * @property string $money 订单金额
  * @property string $type 订单类型：vip,event
- * @property int $open_id 用户
+ * @property string $aim_id
+ * @property string $open_id 用户
  * @property string $user_name 用户名
  * @property int $is_used 使用过
+ * @property string $status
  * @property string $created_at
  * @property string $updated_at
  */
@@ -33,8 +35,8 @@ class OrderGii extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['updated_at','status'], 'safe'],
-            [['money', 'type', 'user_name', 'created_at'], 'string', 'max' => 255],
+            [['is_used'], 'integer'],
+            [['num', 'money', 'type', 'aim_id', 'open_id', 'user_name', 'status', 'created_at','updated_at'], 'safe'],
         ];
     }
 
@@ -45,15 +47,25 @@ class OrderGii extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'num' => '订单号',
-            'money' => '金额',
-            'type' => '类型',
+            'num' => 'Num',
+            'money' => 'Money',
+            'type' => 'Type',
+            'aim_id' => 'Aim ID',
             'open_id' => 'Open ID',
-            'user_name' => '用户名',
+            'user_name' => 'User Name',
             'is_used' => 'Is Used',
-            'status' => '状态',
-            'created_at' => '创建时间',
-            'updated_at' => '更新时间',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return OrderQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new OrderQuery(get_called_class());
     }
 }
