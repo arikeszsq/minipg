@@ -57,7 +57,7 @@ use yii\bootstrap\ActiveForm;
 
         <div class="form-group">
             <div class="col-lg-offset-8 col-lg-3">
-                <?= Html::submitButton('登陆', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('登录', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>
 
