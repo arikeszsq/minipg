@@ -27,17 +27,19 @@ class NotifyController extends BaseController
         $result_code = $result['result_code'];
         if ("SUCCESS" == $result_code) {
             $order = Order::find()->where(['num' => $result['out_trade_no']])->one();
-            $order->status = 2;
-            $order->save();
             $user = UserInfo::find()->where(['open_id' => $result['openid']])->one();
             $user_id = $user->id;
-            if ($order->type == 1) {
+            if ($order->type == 1 && $order->status != 2) {
                 $card_id = $order->aim_id;
                 $card = Card::find()->where(['id' => $card_id])->one();
                 $this->bind_card($user_id, $user, $card_id, $card);
                 $this->bind_coupon($user, $card_id);
-            } elseif ($order->type == 2) {
+                $order->status = 2;
+                $order->save();
+            } elseif ($order->type == 2 && $order->status != 2) {
                 $this->enroll_event($user, $order->aim_id);
+                $order->status = 2;
+                $order->save();
             }
         }
     }
