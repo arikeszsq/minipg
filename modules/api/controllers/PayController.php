@@ -99,43 +99,43 @@ class PayController extends BaseController
         return $signData;
     }
 
-    /**
-     * 购买会员卡成功，成为会员，同时发放会员卡对应的优惠券
-     * @return array|\yii\db\ActiveRecord|null
-     */
-    public function actionGetCard()
-    {
-        $ret = $this->requireLogin();
-        if ($ret['code'] != 200) {
-            return $ret;
-        }
-        $open_id = $ret['open_id'];
-        $user = $this->getUser($open_id);
-        $user_id = $user->id;
-        $user = $this->getUser($user_id);
-        $inputs = Yii::$app->request->post();
-        $card_id = $inputs['card_id'];
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            $user_card = new UserCard();
-            $user_card->card_id = $card_id;
-            $user_card->user_id = $user_id;
-            $user_card->save();
-            $coupons = Coupon::find()->where(['card_id' => $card_id])->all();
-            foreach ($coupons as $coupon) {
-                $user_coupon = new UserCoupon();
-                $user_coupon->user_id = $user_id;
-                $user_coupon->username = $user->username;
-                $user_coupon->coupon_id = $coupon->id;
-                $user_coupon->coupon_name = $coupon->name;
-                $user_coupon->total_num = $coupon->total_num;
-                $user_coupon->stay_num = $coupon->total_num;
-                $user_coupon->save();
-            }
-        } catch (\Exception $e) {
-            $transaction->rollBack();
-        }
-    }
+//    /**
+//     * 购买会员卡成功，成为会员，同时发放会员卡对应的优惠券
+//     * @return array|\yii\db\ActiveRecord|null
+//     */
+//    public function actionGetCard()
+//    {
+//        $ret = $this->requireLogin();
+//        if ($ret['code'] != 200) {
+//            return $ret;
+//        }
+//        $open_id = $ret['open_id'];
+//        $user = $this->getUser($open_id);
+//        $user_id = $user->id;
+//        $user = $this->getUser($user_id);
+//        $inputs = Yii::$app->request->post();
+//        $card_id = $inputs['card_id'];
+//        $transaction = Yii::$app->db->beginTransaction();
+//        try {
+//            $user_card = new UserCard();
+//            $user_card->card_id = $card_id;
+//            $user_card->user_id = $user_id;
+//            $user_card->save();
+//            $coupons = Coupon::find()->where(['card_id' => $card_id])->all();
+//            foreach ($coupons as $coupon) {
+//                $user_coupon = new UserCoupon();
+//                $user_coupon->user_id = $user_id;
+//                $user_coupon->username = $user->username;
+//                $user_coupon->coupon_id = $coupon->id;
+//                $user_coupon->coupon_name = $coupon->name;
+//                $user_coupon->total_num = $coupon->total_num;
+//                $user_coupon->stay_num = $coupon->total_num;
+//                $user_coupon->save();
+//            }
+//        } catch (\Exception $e) {
+//            $transaction->rollBack();
+//        }
+//    }
 
     /**
      * 用户使用核销码
@@ -176,7 +176,7 @@ class PayController extends BaseController
         if ($user_coupon->stay_num <= 0) {
             return [
                 'code' => 102,
-                'msg' => '您的没有优惠券了！！！'
+                'msg' => '您没有优惠券了！！！'
             ];
         }
         $user_coupon->stay_num = $user_coupon->stay_num - 1;
