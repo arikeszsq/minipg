@@ -40,6 +40,14 @@ class PayController extends BaseController
         $data["appid"] = $app_id;
         $data["mch_id"] = $mch_id;
         $params = Yii::$app->request->post();
+
+        if (isset($params['mobile']) && !empty($params['mobile'])) {
+            $mobile = $params['mobile'];
+            $user = $this->getUser($openid);
+            $user->phone = $mobile;
+            $user->save();
+        }
+
         //1:会员卡支付 2.活动支付
         $type = $params['type'];
         $id = $params['id'];
