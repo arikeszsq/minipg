@@ -24,6 +24,7 @@ class EventController extends BaseController
         $is_selected = $inputs['is_selected'] ?? null;
         $status = $inputs['status'] ?? null;
         $need_vip = $inputs['need_vip'] ?? null;
+        $searchName = $inputs['name'] ?? null;
         $query = Event::find();
         $total_count = $query->count();
         $total_page = ceil($total_count / $per_page);
@@ -33,6 +34,7 @@ class EventController extends BaseController
             ->andFilterWhere(['is_hot' => $is_hot])
             ->andFilterWhere(['is_selected' => $is_selected])
             ->andFilterWhere(['need_vip' => $need_vip])
+            ->andFilterWhere(['like', 'name', $searchName])
             ->offset($offset)
             ->limit($per_page)
             ->orderBy('status DESC')
