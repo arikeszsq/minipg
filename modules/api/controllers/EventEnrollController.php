@@ -16,7 +16,11 @@ class EventEnrollController extends BaseController
         }
         $open_id = $ret['open_id'];
         $user = $this->getUser($open_id);
-        $lists = EventEnroll::find()->where(['user_id' => $user->id])->all();
+        $lists = EventEnroll::find()
+            ->where(['user_id' => $user->id])
+            ->with('event')
+            ->asArray()
+            ->all();
         return [
             'code' => 200,
             'msg' => '成功',

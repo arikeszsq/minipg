@@ -40,4 +40,13 @@ class EventEnroll extends EventEnrollGii
         return $this->hasOne(UserInfo::className(), ['id' => 'user_id']);
     }
 
+    /**
+     * 关联活动表
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEvent()
+    {
+        return $this->hasOne(Event::className(), ['id' => 'event_id']);
+    }
+
 }
