@@ -51,7 +51,7 @@ class UserCardGii extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'user_id' => '用户ID',
             'user_name' => '用户名',
             'open_id' => 'Open ID',
             'card_id' => 'Card ID',

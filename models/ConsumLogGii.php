@@ -43,7 +43,7 @@ class ConsumLogGii extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'user_id' => '用户ID',
             'username' => '用户名',
             'business_name' => '商家名称',
             'created_at' => '消费时间',

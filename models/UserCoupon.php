@@ -48,7 +48,7 @@ class UserCoupon extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'user_id' => '用户ID',
             'username' => '用户名',
             'coupon_id' => 'Coupon ID',
             'coupon_name' => '优惠券名称',

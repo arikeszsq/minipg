@@ -52,7 +52,7 @@ class UserInfoGii extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => '用户ID',
             'open_id' => 'Open ID',
             'username' => '用户名',
             'real_name' => 'Real Name',
