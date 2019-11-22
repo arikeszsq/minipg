@@ -41,8 +41,7 @@ class UserInfoGii extends \yii\db\ActiveRecord
     {
         return [
             [['is_vip'], 'integer'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['open_id', 'child_name', 'child_gender', 'child_age'], 'string', 'max' => 50],
+            [['created_at', 'updated_at', 'deleted_at','open_id', 'child_name', 'child_gender', 'child_age'], 'safe'],
             [['username', 'real_name', 'phone', 'status', 'parent_name', 'parent_mobile', 'child_birthday'], 'string', 'max' => 255],
         ];
     }
