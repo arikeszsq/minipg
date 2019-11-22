@@ -102,6 +102,16 @@ class EventController extends BaseController
                 'msg' => 'event_id必填！！！'
             ];
         }
+        $event_enroll = EventEnroll::find()
+            ->where(['event_id' => $event_id])
+            ->andWhere(['user_id' => $user_id])
+            ->one();
+        if ($event_enroll) {
+            return [
+                'code' => 108,
+                'msg' => '请勿重复报名！'
+            ];
+        }
         $event = Event::findOne($event_id);
         if ($event->status == Event::Status_已结束) {
             return [
