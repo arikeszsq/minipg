@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Business;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -27,15 +28,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'name',
-            'code',
+//            'code',
 //            'logo',
 //            //'banner',
+//        'status',
             'phone',
             'wx_num',
             'address',
             'created_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}{update}',
+//                'buttons' => [
+//                    'view' => function ($url, Business $model, $key) {
+//                        return Html::a('详情', $url, [
+//                            'class' => 'btn btn-primary btn-xs',
+//                            'style' => 'margin-left:5px;',
+//                        ]);
+//                    },
+//                    'delete' => function ($url, Business $model, $key) {
+//                        return Html::a('删除', $url, [
+//                            'class' => 'btn btn-danger btn-xs',
+//                            'style' => 'margin-left:5px;',
+//                            'data' => [
+//                                'confirm' => '确认删除这条记录？',
+//                                'method' => 'post',
+//                            ],
+//                        ]);
+//                    },
+//                ],
+            ],
         ],
     ]); ?>
 

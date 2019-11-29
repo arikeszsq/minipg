@@ -8,14 +8,14 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CouponSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '优惠卷';
+$this->title = '优惠券';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="coupon-index">
 
 
     <p>
-        <?= Html::a('新建优惠卷', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('新建', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -33,9 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'card_name',
             'name',
-            'price',
-            'total_num',
             'check_code',
+            //'price',
+//            'total_num',
+//            'stay_num',
+//            'already_sale_num',
             'created_at',
             [
                 'format' => 'raw',

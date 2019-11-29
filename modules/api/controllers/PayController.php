@@ -9,6 +9,7 @@ use app\models\Event;
 use app\models\Order;
 use app\models\UserCard;
 use app\models\UserCoupon;
+use app\models\UserInfo;
 use app\modules\api\traits\WeChatTrait;
 use Yii;
 
@@ -33,6 +34,7 @@ class PayController extends BaseController
             return $ret;
         }
         $openid = $ret['open_id'];
+        $user = $this->getUser($openid);
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         $app_id = Yii::$app->params['MINI_APPID'];
         $mch_id = Yii::$app->params['MCH_ID'];
@@ -40,6 +42,19 @@ class PayController extends BaseController
         $data["appid"] = $app_id;
         $data["mch_id"] = $mch_id;
         $params = Yii::$app->request->post();
+        //1:会员卡支付 2.活动支付
+        $type = $params['type'];
+        $id = $params['id'];
+
+        if($type==1){
+            $user_card = UserCard::find()->where(['user_id'=>$user->id,'card_id'=>$id])->one();
+            if($user_card){
+                return [
+                    'code' => 104,
+                    'msg' => '您已经购买过会员卡，请勿重复购买'
+                ];
+            }
+        }
 
         if (isset($params['mobile']) && !empty($params['mobile'])) {
             $mobile = $params['mobile'];
@@ -48,9 +63,6 @@ class PayController extends BaseController
             $user->save();
         }
 
-        //1:会员卡支付 2.活动支付
-        $type = $params['type'];
-        $id = $params['id'];
         if ($type == 1) {
             $data["body"] = '开通会员卡';
             $obj = Card::find()->where(['id' => $id])->one();
@@ -74,12 +86,14 @@ class PayController extends BaseController
         $response = $this->postXmlCurl($xml, $url);
         $result = $this->xmlstr_to_array($response);
         if ($result['return_code'] == 'SUCCESS') {
+            $user = UserInfo::find()->where(['open_id' => $openid])->one();
             $order = new Order();
             $order->aim_id = $id;
             $order->num = $data["out_trade_no"];
             $order->money = $data['total_fee'];
             $order->type = $type;
             $order->open_id = $openid;
+            $order->user_id = $user->id;
             $order->is_used = 1;
             $order->status = 1;
             $order->save();
@@ -106,44 +120,6 @@ class PayController extends BaseController
         unset($signData['appId']);
         return $signData;
     }
-
-//    /**
-//     * 购买会员卡成功，成为会员，同时发放会员卡对应的优惠券
-//     * @return array|\yii\db\ActiveRecord|null
-//     */
-//    public function actionGetCard()
-//    {
-//        $ret = $this->requireLogin();
-//        if ($ret['code'] != 200) {
-//            return $ret;
-//        }
-//        $open_id = $ret['open_id'];
-//        $user = $this->getUser($open_id);
-//        $user_id = $user->id;
-//        $user = $this->getUser($user_id);
-//        $inputs = Yii::$app->request->post();
-//        $card_id = $inputs['card_id'];
-//        $transaction = Yii::$app->db->beginTransaction();
-//        try {
-//            $user_card = new UserCard();
-//            $user_card->card_id = $card_id;
-//            $user_card->user_id = $user_id;
-//            $user_card->save();
-//            $coupons = Coupon::find()->where(['card_id' => $card_id])->all();
-//            foreach ($coupons as $coupon) {
-//                $user_coupon = new UserCoupon();
-//                $user_coupon->user_id = $user_id;
-//                $user_coupon->username = $user->username;
-//                $user_coupon->coupon_id = $coupon->id;
-//                $user_coupon->coupon_name = $coupon->name;
-//                $user_coupon->total_num = $coupon->total_num;
-//                $user_coupon->stay_num = $coupon->total_num;
-//                $user_coupon->save();
-//            }
-//        } catch (\Exception $e) {
-//            $transaction->rollBack();
-//        }
-//    }
 
     /**
      * 用户使用核销码

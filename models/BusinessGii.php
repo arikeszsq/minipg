@@ -57,7 +57,7 @@ class BusinessGii extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => '商家名',
-            'code' => '商家码',
+            'code' => '商家编号',
             'logo' => 'Logo',
             'banner' => 'Banner',
             'phone' => '手机号',

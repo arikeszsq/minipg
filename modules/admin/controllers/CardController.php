@@ -2,9 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\UserCard;
 use Yii;
 use app\models\Card;
 use app\models\CardSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -103,6 +105,11 @@ class CardController extends BaseController
      */
     public function actionDelete($id)
     {
+        $user_card = UserCard::find()->where(['card_id'=>$id])->one();
+        if($user_card){
+            Yii::$app->session->setFlash('error', '已发售的会员卡，不允许删除！');
+            return $this->redirect(['index']);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

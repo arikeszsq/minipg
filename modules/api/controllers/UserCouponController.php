@@ -9,6 +9,10 @@ use Yii;
 
 class UserCouponController extends BaseController
 {
+    /**
+     * 我的优惠券列表
+     * @return array
+     */
     public function actionLists()
     {
         $ret = $this->requireLogin();

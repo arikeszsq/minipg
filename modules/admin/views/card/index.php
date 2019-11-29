@@ -1,6 +1,5 @@
 <?php
 
-use app\models\Card;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -8,14 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CardSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '会员卡列表';
+$this->title = '会员卡';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card-index">
+
     <p>
         <?= Html::a('新建', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -23,29 +22,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            [
-                "format" => 'raw',
-                'value' => function ($model) {
-                    return Html::img($model->pic_url, ["width" => "30", "height" => "30"]);
-                },
-            ],
-
             'name',
+//            'description',
+//            'status',
+            //'valid_time_start',
+            //'valid_time_end',
+            //'valid_time',
+            //'pic_url:url',
             'price',
+            //'origin_price',
+            //'count',
+            //'sale_max_num',
+            //'already_sale_num',
+            //'stay_num',
+            //'version',
+            //'allow_coupon_num',
+            //'everyone_max_num',
             'created_at',
-
-            [
-                'format' => 'raw',
-                'value' => function ($model) {
-                    if (intval($model->status) == Card::Status_使用中) {
-                        return '<span style="color: red;">使用中</span>';
-                    } elseif (intval($model->status) == Card::Status_已绝版) {
-                        return '<span style="color: blueviolet;">已绝版</span>';
-                    } else {
-                        return '<span style="color: yellowgreen;">预发售</span>';
-                    }
-                },
-            ],
+            //'updated_at',
+            //'deleted_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

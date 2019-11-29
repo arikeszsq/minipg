@@ -35,6 +35,7 @@ use yii\widgets\ActiveForm;
     <?php echo $form->field($model, 'pic_url')->widget('manks\FileInput', []); ?>
 
     <?= $form->field($model, 'price')->input('text',['style'=>'width:250px']) ?>
+    <?= $form->field($model, 'allow_coupon_num')->input('text',['style'=>'width:250px']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>

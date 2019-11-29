@@ -18,7 +18,7 @@ class OrderSearch extends Order
     {
         return [
             [['id', 'is_used'], 'integer'],
-            [['num', 'money', 'type', 'open_id', 'user_name', 'created_at', 'updated_at'], 'safe'],
+            [['user_id', 'num', 'type', 'open_id', 'user_name', 'status'], 'safe'],
         ];
     }
 
@@ -61,6 +61,8 @@ class OrderSearch extends Order
             'id' => $this->id,
             'is_used' => $this->is_used,
             'updated_at' => $this->updated_at,
+            'user_id' => $this->user_id,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'num', $this->num])

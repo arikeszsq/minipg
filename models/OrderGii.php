@@ -18,6 +18,7 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property string $user_id
  */
 class OrderGii extends \yii\db\ActiveRecord
 {
@@ -36,7 +37,7 @@ class OrderGii extends \yii\db\ActiveRecord
     {
         return [
             [['is_used'], 'integer'],
-            [['num', 'money', 'type', 'aim_id', 'open_id', 'user_name', 'status', 'created_at','updated_at'], 'safe'],
+            [['num', 'money', 'type', 'aim_id','user_id', 'open_id', 'user_name', 'status', 'created_at','updated_at'], 'safe'],
         ];
     }
 
@@ -47,16 +48,17 @@ class OrderGii extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'num' => 'Num',
-            'money' => 'Money',
-            'type' => 'Type',
-            'aim_id' => 'Aim ID',
+            'num' => '订单号',
+            'money' => '金额',
+            'type' => '消费类型',
+            'aim_id' => '',
             'open_id' => 'Open ID',
-            'user_name' => 'User Name',
-            'is_used' => 'Is Used',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'user_name' => '用户名',
+            'user_id' => '用户ID',
+            'is_used' => '已用',
+            'status' => '状态',
+            'created_at' => '新建时间',
+            'updated_at' => '更新时间',
         ];
     }
 

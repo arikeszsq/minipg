@@ -19,21 +19,35 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
 
+    <?= $form->field($model, 'description') ?>
+
     <?= $form->field($model, 'status') ?>
 
     <?= $form->field($model, 'valid_time_start') ?>
 
-    <?= $form->field($model, 'valid_time_end') ?>
+    <?php // echo $form->field($model, 'valid_time_end') ?>
 
     <?php // echo $form->field($model, 'valid_time') ?>
 
     <?php // echo $form->field($model, 'pic_url') ?>
 
+    <?php // echo $form->field($model, 'price') ?>
+
     <?php // echo $form->field($model, 'origin_price') ?>
 
     <?php // echo $form->field($model, 'count') ?>
 
-    <?php // echo $form->field($model, 'price') ?>
+    <?php // echo $form->field($model, 'sale_max_num') ?>
+
+    <?php // echo $form->field($model, 'already_sale_num') ?>
+
+    <?php // echo $form->field($model, 'stay_num') ?>
+
+    <?php // echo $form->field($model, 'version') ?>
+
+    <?php // echo $form->field($model, 'allow_coupon_num') ?>
+
+    <?php // echo $form->field($model, 'everyone_max_num') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

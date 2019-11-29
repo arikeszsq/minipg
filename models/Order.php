@@ -10,6 +10,13 @@ use yii\db\ActiveRecord;
 class Order extends OrderGii
 {
     const Used_已使用 = 1;
+
+    const Status_待支付 = 1;
+    const Status_支付成功 = 2;
+
+    const Type_开通会员卡 = 1;
+    const Type_活动报名 = 2;
+
     public function behaviors()
     {
         return [

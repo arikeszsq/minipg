@@ -33,7 +33,6 @@ class NotifyController extends BaseController
                 $card_id = $order->aim_id;
                 $card = Card::find()->where(['id' => $card_id])->one();
                 $this->bind_card($user_id, $user, $card_id, $card);
-                $this->bind_coupon($user, $card_id);
                 $order->status = 2;
                 $order->save();
             } elseif ($order->type == 2 && $order->status != 2) {
@@ -56,41 +55,18 @@ class NotifyController extends BaseController
     {
         $user_card = new UserCard();
         $user_card->user_id = $user_id;
+        $user_card->card_id = $card_id;
         $user_card->user_name = $user->username;
         $user_card->open_id = $user->open_id;
-        $user_card->card_id = $card_id;
         $user_card->card_name = $card->name;
-        $user_card->card_num = rand(10000000, 99999999) . 'vip_card';
+        $user_card->card_num = rand(100000, 999999) . 'vip_card';
         $user_card->valid_time_start = $card->valid_time_start;
         $user_card->valid_time_end = $card->valid_time_end;
-        $user_card->valid_time = $card->valid_time_start . '-' . $card->valid_time_end;
         $user_card->cipher = rand(100000, 999999);
+        $user_card->max_coupon_num = $card->allow_coupon_num;
+        $user_card->stay_coupon_num = $card->allow_coupon_num;
         $user_card->save();
         return $user_card;
-    }
-
-
-    /**
-     * 开通会员卡后，发放优惠券
-     * @param $user
-     * @param $card_id
-     */
-    function bind_coupon($user, $card_id)
-    {
-        $coupons = Coupon::find()->where(['card_id' => $card_id])->all();
-        if ($coupons) {
-            foreach ($coupons as $coupon) {
-                $user_coupon = new UserCoupon();
-                $user_coupon->user_id = $user->id;
-                $user_coupon->username = $user->username;
-                $user_coupon->coupon_id = $coupon->id;
-                $user_coupon->coupon_name = $coupon->name;
-                $user_coupon->status = Coupon::Status_有效;
-                $user_coupon->total_num = $coupon->total_num;
-                $user_coupon->stay_num = $coupon->total_num;
-                $user_coupon->save();
-            }
-        }
     }
 
     /**

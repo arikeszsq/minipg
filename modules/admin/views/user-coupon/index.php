@@ -19,8 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'user_id',
             'username',
             'coupon_name',
-            'total_num',
-            'stay_num',
+            'everyone_max_num',
+            'already_get_num',
+            'stay_get_num',
+            'stay_num' ,
             'created_at',
         ],
     ]); ?>

@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user_coupon".
@@ -19,45 +21,22 @@ use Yii;
  * @property string $updated_at
  * @property string $deleted_at
  */
-class UserCoupon extends \yii\db\ActiveRecord
+class UserCoupon extends UserCouponGii
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'user_coupon';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+    public function behaviors()
     {
         return [
-            [['user_id', 'coupon_id', 'status', 'total_num', 'stay_num'], 'integer'],
-            [['updated_at'], 'safe'],
-            [['username', 'coupon_name', 'created_at', 'deleted_at'], 'string', 'max' => 255],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'user_id' => '用户ID',
-            'username' => '用户名',
-            'coupon_id' => 'Coupon ID',
-            'coupon_name' => '优惠券名称',
-            'status' => 'Status',
-            'total_num' => '总数',
-            'stay_num' => '剩余数',
-            'created_at' => '使用时间',
-            'updated_at' => 'Updated At',
-            'deleted_at' => 'Deleted At',
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    # 创建时更新
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    # 修改时更新
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
+                ],
+                #设置默认值
+                'value' => date("Y-m-d H:i:s")
+            ]
         ];
     }
 

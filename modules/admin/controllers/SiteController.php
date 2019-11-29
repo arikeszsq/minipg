@@ -71,7 +71,7 @@ class SiteController extends Controller
             if ($admin->_password($password) == $user->password) {
                 Yii::$app->session['token'] = $this->encrypt($user->id);
                 $log = new BackendLog();
-                $log->add_log($username,'登陆',$user->id);
+                $log->add_log($username,'登录',$user->id);
                 return $this->redirect('/admin/event/index');
             }
         }

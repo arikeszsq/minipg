@@ -17,10 +17,9 @@ class CardSearch extends Card
     public function rules()
     {
         return [
-            [['id', 'count'], 'integer'],
-            [['name', 'valid_time_start', 'valid_time_end', 'valid_time', 'pic_url', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
-//            [['name', 'status', 'valid_time_start', 'valid_time_end', 'valid_time', 'pic_url', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['origin_price', 'price'], 'number'],
+            [['id', 'count', 'sale_max_num', 'already_sale_num', 'stay_num', 'version', 'allow_coupon_num', 'everyone_max_num'], 'integer'],
+            [['name', 'description', 'status', 'valid_time_start', 'valid_time_end', 'valid_time', 'pic_url', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['price', 'origin_price'], 'number'],
         ];
     }
 
@@ -63,17 +62,24 @@ class CardSearch extends Card
             'id' => $this->id,
             'valid_time_start' => $this->valid_time_start,
             'valid_time_end' => $this->valid_time_end,
+            'price' => $this->price,
             'origin_price' => $this->origin_price,
             'count' => $this->count,
-            'price' => $this->price,
+            'sale_max_num' => $this->sale_max_num,
+            'already_sale_num' => $this->already_sale_num,
+            'stay_num' => $this->stay_num,
+            'version' => $this->version,
+            'allow_coupon_num' => $this->allow_coupon_num,
+            'everyone_max_num' => $this->everyone_max_num,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-//            ->andFilterWhere(['like', 'status', $this->status])
-//            ->andFilterWhere(['like', 'valid_time', $this->valid_time])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'valid_time', $this->valid_time])
             ->andFilterWhere(['like', 'pic_url', $this->pic_url]);
 
         return $dataProvider;

@@ -34,8 +34,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->input('text', ['style' => 'width:250px']) ?>
 
-    <?= $form->field($model, 'total_num')->input('text', ['style' => 'width:250px']) ?>
-
     <?= $form->field($model, 'status')->dropDownList(Coupon::statusDropdownList(), ['prompt' => '请选择', 'style' => 'width:250px']); ?>
 
     <?= $form->field($model, 'valid_time_start')->label('有效开始时间')->widget(kartik\datetime\DateTimePicker::className(), [
@@ -57,6 +55,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'using_flow')->textArea(['rows' => 2, 'style' => 'width:450px']) ?>
 
     <?= $form->field($model, 'using_detail')->textArea(['rows' => 2, 'style' => 'width:450px']) ?>
+
+
+    <?= $form->field($model, 'total_num')->input('text', ['style' => 'width:250px']) ?>
+    <?= $form->field($model, 'everyone_max_num')->input('text', ['style' => 'width:250px']) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>

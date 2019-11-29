@@ -83,4 +83,9 @@ class Coupon extends CouponGii
         return $this->hasOne(Business::className(), ['id' => 'business_id']);
     }
 
+    public function getUserCoupon()
+    {
+        return $this->hasOne(UserCoupon::className(), ['coupon_id' => 'id']);
+    }
+
 }

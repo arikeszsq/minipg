@@ -17,8 +17,8 @@ class UserCouponSearch extends UserCoupon
     public function rules()
     {
         return [
-            [['id', 'user_id', 'coupon_id', 'status', 'total_num', 'stay_num'], 'integer'],
-            [['username', 'coupon_name', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id', 'user_id', 'coupon_id', 'status'], 'integer'],
+            [['username', 'coupon_name', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -62,8 +62,6 @@ class UserCouponSearch extends UserCoupon
             'user_id' => $this->user_id,
             'coupon_id' => $this->coupon_id,
             'status' => $this->status,
-            'total_num' => $this->total_num,
-            'stay_num' => $this->stay_num,
             'updated_at' => $this->updated_at,
         ]);
 

@@ -9,6 +9,7 @@ use app\modules\admin\service\CommonService;
 use Yii;
 use app\models\Coupon;
 use app\models\CouponSearch;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -81,22 +82,8 @@ class CouponController extends BaseController
             $common = new CommonService;
             $business_id = $common->getBusinessId($params['Coupon']['business_name']);
             $model->business_id = $business_id;
-
+            $model->stay_num = $params['Coupon']['total_num'];
             $model->save();
-            $users = UserCard::find()->where(['card_id' => $card_id])->all();
-            if($users){
-                foreach ($users as $user) {
-                    $user_coupon = new UserCoupon();
-                    $user_coupon->user_id = $user->user_id;
-                    $user_coupon->username = $user->user_name;
-                    $user_coupon->coupon_id = $model->id;
-                    $user_coupon->coupon_name = $model->name;
-                    $user_coupon->status = Coupon::Status_有效;
-                    $user_coupon->total_num = $model->total_num;
-                    $user_coupon->stay_num = $model->total_num;
-                    $user_coupon->save();
-                }
-            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -115,10 +102,37 @@ class CouponController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $version = $model->version;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+            $params = Yii::$app->request->post();
+            $model->load(Yii::$app->request->post());
+            $model->suitable_age = $params['Coupon']['suitable_age_start'] . '-' . $params['Coupon']['suitable_age_end'];
+            $total_num = $params['Coupon']['total_num'];
+            $stay_num = $total_num - $model->already_sale_num;
+            if ($stay_num < 0) {
+                Yii::$app->session->setFlash('error', '库存总数不得小于已发售数目:' . $model->already_sale_num);
+                return $this->redirect(['index']);
+            }
+            $model->stay_num = $stay_num;
+            $model->total_num = $params['Coupon']['total_num'];
+
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->version += 1;
+                $model->save();
+                if ($model->version != $version + 1) {
+                    throw new Exception('更新失败，表已经更新，请重新更新');
+                }
+                $transaction->commit();
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', $e->getMessage());
+                return $this->redirect(['index']);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
 
         return $this->render('update', [
             'model' => $model,
@@ -134,6 +148,12 @@ class CouponController extends BaseController
      */
     public function actionDelete($id)
     {
+        $user_coupon = UserCoupon::find()->where(['coupon_id' => $id])->one();
+        if ($user_coupon) {
+            Yii::$app->session->setFlash('error', '已有领取的优惠券，不允许删除！');
+            return $this->redirect(['index']);
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
