@@ -36,6 +36,12 @@ class CouponController extends BaseController
             ->one();
         $card_id = $coupon['card_id'];
         $user_card = UserCard::find()->where(['user_id' => $user_id])->andWhere(['card_id' => $card_id])->one();
+        $user_coupon = UserCoupon::find()->where(['user_id' => $user_id, 'coupon_id' => $coupon_id])->one();
+        if ($user_coupon && $user_coupon->stay_num > 0) {
+            $has_coupon = 1;
+        } else {
+            $has_coupon = 0;
+        }
         if ($user_card) {
             $is_vip = 1;
         } else {
@@ -45,7 +51,8 @@ class CouponController extends BaseController
             'code' => 200,
             'msg' => '成功获取',
             'coupon' => $coupon,
-            'is_vip' => $is_vip
+            'is_vip' => $is_vip,
+            'has_coupon' => $has_coupon
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\BackendLog;
 use app\models\UserCard;
 use app\models\UserCoupon;
 use app\modules\admin\service\CardService;
@@ -84,6 +85,12 @@ class CouponController extends BaseController
             $model->business_id = $business_id;
             $model->stay_num = $params['Coupon']['total_num'];
             $model->save();
+
+            if (Yii::$app->session['user_name']) {
+                $log = new BackendLog();
+                $log->add_log(Yii::$app->session['user_name'], '新建优惠券:'.Yii::$app->request->post()['Coupon']['name']);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

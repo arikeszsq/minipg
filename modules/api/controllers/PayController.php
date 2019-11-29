@@ -46,9 +46,9 @@ class PayController extends BaseController
         $type = $params['type'];
         $id = $params['id'];
 
-        if($type==1){
-            $user_card = UserCard::find()->where(['user_id'=>$user->id,'card_id'=>$id])->one();
-            if($user_card){
+        if ($type == 1) {
+            $user_card = UserCard::find()->where(['user_id' => $user->id, 'card_id' => $id])->one();
+            if ($user_card) {
                 return [
                     'code' => 104,
                     'msg' => '您已经购买过会员卡，请勿重复购买'
@@ -156,14 +156,15 @@ class PayController extends BaseController
                 'msg' => '核销码输入错误'
             ];
         }
-        $user_coupon = UserCoupon::find()->where(['user_id' => $user_id])->one();
+        $user_coupon = UserCoupon::find()->where(['user_id' => $user_id, 'coupon_id' => $coupon_id])->one();
         if ($user_coupon->stay_num <= 0) {
             return [
                 'code' => 102,
                 'msg' => '您没有优惠券了！！！'
             ];
+        } else {
+            $user_coupon->stay_num -= 1;
         }
-        $user_coupon->stay_num = $user_coupon->stay_num - 1;
 
         if ($user_coupon->save()) {
             $log = new ConsumLog();

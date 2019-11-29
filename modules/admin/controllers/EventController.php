@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\BackendLog;
 use Yii;
 use app\models\Event;
 use app\models\EventSearch;
@@ -86,6 +87,10 @@ class EventController extends BaseController
                 $model->background_url = implode(',', $background_urls);
             };
             $model->save();
+            if (Yii::$app->session['user_name']) {
+                $log = new BackendLog();
+                $log->add_log(Yii::$app->session['user_name'], '新建活动:'.Yii::$app->request->post()['Event']['name']);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -110,6 +115,10 @@ class EventController extends BaseController
                 $model->background_url = implode(',', $background_urls);
             };
             $model->save();
+            if (Yii::$app->session['user_name']) {
+                $log = new BackendLog();
+                $log->add_log(Yii::$app->session['user_name'], '更新活动:'.Yii::$app->request->post()['Event']['name']);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

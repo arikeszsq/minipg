@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\BackendLog;
 use app\models\UserCard;
 use Yii;
 use app\models\Card;
@@ -68,6 +69,11 @@ class CardController extends BaseController
         $model = new Card();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            if (Yii::$app->session['user_name']) {
+                $log = new BackendLog();
+                $log->add_log(Yii::$app->session['user_name'], '新建会员卡:'.Yii::$app->request->post()['Card']['name']);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -88,6 +94,10 @@ class CardController extends BaseController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (Yii::$app->session['user_name']) {
+                $log = new BackendLog();
+                $log->add_log(Yii::$app->session['user_name'], '更新会员卡:'.Yii::$app->request->post()['Card']['name']);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -105,10 +115,14 @@ class CardController extends BaseController
      */
     public function actionDelete($id)
     {
-        $user_card = UserCard::find()->where(['card_id'=>$id])->one();
-        if($user_card){
+        $user_card = UserCard::find()->where(['card_id' => $id])->one();
+        if ($user_card) {
             Yii::$app->session->setFlash('error', '已发售的会员卡，不允许删除！');
             return $this->redirect(['index']);
+        }
+        if (Yii::$app->session['user_name']) {
+            $log = new BackendLog();
+            $log->add_log(Yii::$app->session['user_name'], '删除会员卡:'.Yii::$app->request->post()['Card']['name']);
         }
         $this->findModel($id)->delete();
 
